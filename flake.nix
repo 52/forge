@@ -1,5 +1,5 @@
 {
-  description = "<todo>";
+  description = "GNU Emacs with sensible defaults";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
