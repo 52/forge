@@ -1,4 +1,4 @@
-;;; init.el -*- lexical-binding: t; -*-
+;;; early-init.el -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -16,11 +16,4 @@
 
 ;;; Code:
 
-;; This configuration requires a GNU Emacs version 30 or newer.
-(when (< emacs-major-version 30)
-  (error "This configuration only works with Emacs 30 and newer; you have version %s"
-         emacs-major-version))
-
-(require 'use-package)
-
-;;; init.el ends here
+(message "✅ early-init.el loaded")

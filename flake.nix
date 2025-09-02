@@ -20,37 +20,38 @@
           inherit system;
         };
 
-        ## <todo>
+        ## The designated package name.
         ##
         #@ String
         name = "forge";
 
-        ## <todo>
+        ## The underlying GNU Emacs package.
         ##
         #@ Package
         package = pkgs.emacs30;
 
-        ## <todo>
+        ## Set of GNU Emacs packages for the package version.
         ##
         #@ AttrSet
         epkgs = pkgs.emacsPackagesFor package;
 
-        ## <todo>
+        ## List of packages to install.
         ##
         #@ [Package]
         packages = with epkgs; [ evil ];
 
-        ## <todo>
+        ## Create a custom GNU Emacs package.
         ##
         #@ AttrSet -> Derivation
         mkEmacsPackage =
           {
-            ## <todo>
+            ## Tree-sitter packages to install.
+            ## See: https://github.com/orgs/tree-sitter-grammars
             ##
             #@ Package
             grammars ? epkgs.treesit-grammars.with-all-grammars,
 
-            ## <todo>
+            ## List of extra packages to install.
             ##
             #@ [Package]
             extraPackages ? [ ],
@@ -58,27 +59,27 @@
           pkgs.symlinkJoin {
             inherit name;
 
-            buildInputs = [ pkgs.makeWrapper ];
-
             paths = [
               (epkgs.emacsWithPackages (_: packages ++ extraPackages ++ [ grammars ]))
             ];
 
+            buildInputs = [
+              pkgs.makeWrapper
+            ];
+
             postBuild = ''
-              # <todo>
-              # <todo>
               $out/bin/emacs --batch \
+                --eval "(native-compile \"${self}/early-init.el\" \"$out/share/emacs/native-lisp/early-init.eln\")" \
                 --eval "(native-compile \"${self}/init.el\" \"$out/share/emacs/native-lisp/init.eln\")"
 
-              # <todo>
-              # <todo>
               wrapProgram $out/bin/emacs \
                 --add-flags "--init-directory=\''${XDG_CONFIG_HOME:-\$HOME/.config}/emacs" \
+                --add-flags "--load $out/share/emacs/native-lisp/early-init.eln" \
                 --add-flags "--load $out/share/emacs/native-lisp/init.eln"
             '';
           };
 
-        ## <todo>
+        ## The GNU Emacs derivation.
         ##
         #@ Derivation
         forge = mkEmacsPackage { };
