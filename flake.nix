@@ -20,12 +20,12 @@
           inherit system;
         };
 
-        ## The designated package name.
+        ## The package name.
         ##
         #@ String
         name = "forge";
 
-        ## The underlying GNU Emacs package.
+        ## The GNU Emacs package.
         ##
         #@ Package
         package = pkgs.emacs30;
