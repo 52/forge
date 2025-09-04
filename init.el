@@ -16,11 +16,22 @@
 
 ;;; Code:
 
-;; This configuration requires a GNU Emacs version 30 or newer.
-(when (< emacs-major-version 30)
-  (error "This configuration only works with Emacs 30 and newer; you have version %s"
-         emacs-major-version))
+(defconst forge--emacs-minimal-version 30
+  "The minimum required major version of GNU Emacs.")
 
-(require 'use-package)
+;; Require a GNU Emacs version of `forge--emacs-minimal-version` or newer.
+(when (< emacs-major-version forge--emacs-minimal-version)
+  (error "This configuration is compatible with GNU Emacs %d and newer; you have version %s"
+         forge--emacs-minimal-version emacs-major-version))
 
-;;; init.el ends here
+(defun forge--report-init-time ()
+  "Report the total startup time and garbage collection statistics."
+  (let* ((total (float-time (time-subtract (current-time) before-init-time)))
+         (gcs (if (boundp 'gcs-done) gcs-done 0)))
+    (message "Total startup time: %.3fs (%d GCs)" total gcs)))
+
+;; Schedule the reporting of startup statistics after startup.
+;; This will display the total startup time and the number of GC operations.
+(add-hook 'emacs-startup-hook #'forge--report-init-time)
+
+;; init.el ends here
