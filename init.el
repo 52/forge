@@ -34,4 +34,6 @@
 ;; This will display the total startup time and the number of GC operations.
 (add-hook 'emacs-startup-hook #'forge--report-init-time)
 
+(require '+evil)
+
 ;; init.el ends here

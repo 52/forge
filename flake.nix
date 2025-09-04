@@ -68,14 +68,22 @@
             ];
 
             postBuild = ''
-              $out/bin/emacs --batch \
-                --eval "(native-compile \"${self}/early-init.el\" \"$out/share/emacs/native-lisp/early-init.eln\")" \
-                --eval "(native-compile \"${self}/init.el\" \"$out/share/emacs/native-lisp/init.eln\")"
+              mkdir -p $out/src
+              cp -r "${self}"/* $out/src
+              chmod -R u+w $out/src
 
+              export EMACSNATIVELOADPATH=$out/eln-cache
+
+              $out/bin/emacs -L $out/src -L $out/src/modules --batch \
+                -f batch-byte-compile $out/src/*.el $out/src/**/*.el
+                
+              $out/bin/emacs -L $out/src -L $out/src/modules --batch \
+                -f batch-native-compile $out/src/*.el $out/src/**/*.el
+                
               wrapProgram $out/bin/emacs \
-                --add-flags "--init-directory=\''${XDG_CONFIG_HOME:-\$HOME/.config}/emacs" \
-                --add-flags "--load $out/share/emacs/native-lisp/early-init.eln" \
-                --add-flags "--load $out/share/emacs/native-lisp/init.eln"
+                --set EMACSNATIVELOADPATH "$out/eln-cache" \
+                --set EMACSLOADPATH "$out/src/modules:" \
+                --append-flags "--init-directory $out/src"
             '';
           };
 
