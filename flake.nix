@@ -82,6 +82,7 @@
                 
               wrapProgram $out/bin/emacs \
                 --set EMACSNATIVELOADPATH "$out/eln-cache" \
+                --set EMACSTHEMEPATH "$out/src/themes:" \
                 --set EMACSLOADPATH "$out/src/modules:" \
                 --append-flags "--init-directory $out/src"
             '';

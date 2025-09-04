@@ -51,6 +51,13 @@ For now this maintains the default but can be adjusted if needed.")
 ;; by reducing the overhead encountered in data transfer.
 (setq read-process-output-max (* 4 1024 1024))
 
+;; Add directories from the `EMACSTHEMEPATH` to `custom-theme-load-path`.
+;; This makes themes provided by the enviroment visible to GNU Emacs.
+(when-let ((theme-env (getenv "EMACSTHEMEPATH")))
+  (dolist (dir (split-string theme-env path-separator t))
+    (when (file-directory-p dir)
+      (add-to-list 'custom-theme-load-path dir))))
+
 ;; Set the language environment to UTF-8 and disable the default input method.
 ;; This ensures consistent Unicode handling across GNU Emacs.
 (set-language-environment "UTF-8")
