@@ -51,6 +51,11 @@
   ;; This will display the total startup time and the number of GC operations.
   (add-hook 'emacs-startup-hook #'forge--report-init-time))
 
+(use-package spacious-padding
+  :ensure nil
+  :demand t
+  :hook (after-init . spacious-padding-mode))
+
 (provide '+editor)
 
 ;; +editor.el ends here

@@ -25,7 +25,7 @@
          forge--emacs-minimal-version emacs-major-version))
 
 (require '+editor)
-(require '+window)
+(require '+theme)
 
 (require '+evil)
 

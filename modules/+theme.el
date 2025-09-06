@@ -1,4 +1,4 @@
-;;; +window.el -*- lexical-binding: t; -*-
+;;; +theme.el -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -22,11 +22,6 @@
 ;; Set the default font to `monospace 14'.
 (add-hook 'emacs-startup-hook (lambda () (set-face-attribute 'default nil :family "monospace" :height 140 :weight 'light)))
 
-(use-package spacious-padding
-  :ensure nil
-  :demand t
-  :hook (after-init . spacious-padding-mode))
+(provide '+theme)
 
-(provide '+window)
-
-;; +window.el ends here
+;; +theme.el ends here
