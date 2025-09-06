@@ -25,6 +25,24 @@
   (error "This configuration requires minimum GNU Emacs %d; you have version %d"
          emacs-minimal-version emacs-major-version))
 
+(defvar forge-directory-state
+  (expand-file-name "forge" (or (getenv "XDG_STATE_HOME") "~/.local/state"))
+  "The directory for storing persistent state data.
+Follows the XDG Base Directory specification for state files.
+See: https://specifications.freedesktop.org/basedir-spec/latest")
+
+(defvar forge-directory-data
+  (expand-file-name "forge" (or (getenv "XDG_DATA_HOME") "~/.local/share"))
+  "The directory for storing application data files.
+Follows the XDG Base Directory specification for data files.
+See: https://specifications.freedesktop.org/basedir-spec/latest")
+
+(defvar forge-directory-cache
+  (expand-file-name "forge" (or (getenv "XDG_CACHE_HOME") "~/.cache"))
+  "The directory for storing temporary cache files.
+Follows the XDG Base Directory specification for cache files.
+See: https://specifications.freedesktop.org/basedir-spec/latest")
+
 (defvar forge--nix (equal (getenv "NIX") "1")
   "Non-nil when `NIX' is set in the environment.")
 
