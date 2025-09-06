@@ -1,4 +1,4 @@
-;;; +evil.el -*- lexical-binding: t; -*-
+;;; +window.el -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -16,12 +16,17 @@
 ;;
 ;;; Code:
 
-(use-package evil
+;; Load the `hades' colorscheme.
+(add-hook 'emacs-startup-hook (lambda () (load-theme 'hades t)))
+
+;; Set the default font to `monospace 14'.
+(add-hook 'emacs-startup-hook (lambda () (set-face-attribute 'default nil :family "monospace" :height 140 :weight 'light)))
+
+(use-package spacious-padding
   :ensure nil
   :demand t
-  :config
-  (evil-mode 1))
+  :hook (after-init . spacious-padding-mode))
 
-(provide '+evil)
+(provide '+window)
 
-;; +evil.el ends here
+;; +window.el ends here

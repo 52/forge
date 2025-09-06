@@ -21,14 +21,12 @@
 
 (let* ((class '((class color) (min-colors 256)))
 
-       (font-family "monospace")
-       (font-weight 'Light)
-       (font-height '140))
+       (background "#1c1c1c")
+       (foreground "#e6e6e6"))
 
   (custom-theme-set-faces
    'hades
-
-   ))
+   `(default ((,class (:background ,background :foreground ,foreground))))))
 
 ;;;###autoload
 (when (and (boundp 'custom-theme-load-path) load-file-name)

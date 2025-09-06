@@ -28,7 +28,7 @@
         ## The GNU Emacs package.
         ##
         #@ Package
-        package = pkgs.emacs30;
+        package = pkgs.emacs-pgtk;
 
         ## Set of GNU Emacs packages for the package version.
         ##
@@ -38,7 +38,10 @@
         ## List of packages to install.
         ##
         #@ [Package]
-        packages = with epkgs; [ evil ];
+        packages = with epkgs; [
+          spacious-padding
+          evil
+        ];
 
         ## Create a custom GNU Emacs package.
         ##
