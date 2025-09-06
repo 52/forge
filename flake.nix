@@ -97,8 +97,17 @@
         forge = mkEmacsPackage { };
       in
       {
+        apps.default = {
+          type = "app";
+          program = "${forge}/bin/emacs";
+        };
+
+        packages.default = {
+          ${name} = forge;
+        };
+
         overlays.default = _: prev: {
-          ${name} = package;
+          ${name} = forge;
         };
 
         # Shell used by "nix develop".
