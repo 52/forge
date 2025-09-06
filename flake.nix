@@ -39,7 +39,6 @@
         ##
         #@ [Package]
         packages = with epkgs; [
-          spacious-padding
           evil
         ];
 
@@ -75,18 +74,8 @@
               cp -r "${self}"/* $out/src
               chmod -R u+w $out/src
 
-              export EMACSNATIVELOADPATH=$out/eln-cache
-
-              $out/bin/emacs -L $out/src -L $out/src/modules --batch \
-                -f batch-byte-compile $out/src/*.el $out/src/**/*.el
-                
-              $out/bin/emacs -L $out/src -L $out/src/modules --batch \
-                -f batch-native-compile $out/src/*.el $out/src/**/*.el
-                
               wrapProgram $out/bin/emacs \
-                --set EMACSNATIVELOADPATH "$out/eln-cache" \
-                --set EMACSTHEMEPATH "$out/src/themes:" \
-                --set EMACSLOADPATH "$out/src/modules:" \
+                --set NIX "1" \
                 --append-flags "--init-directory $out/src"
             '';
           };
@@ -102,9 +91,7 @@
           program = "${forge}/bin/emacs";
         };
 
-        packages.default = {
-          ${name} = forge;
-        };
+        packages.default = forge;
 
         overlays.default = _: prev: {
           ${name} = forge;
