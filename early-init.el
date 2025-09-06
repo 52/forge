@@ -62,6 +62,7 @@ For now this maintains the default but can be adjusted if needed.")
 
 ;; Keep customization changes out of `init.el' by writing them to `custom.el'.
 (setq custom-file (file-name-concat user-emacs-directory "custom.el"))
+(load custom-file 'noerror 'nomessage)
 
 ;; Set the `custom-theme-directory' to our `themes' folder.
 (setq custom-theme-directory (expand-file-name "themes" user-emacs-directory))
