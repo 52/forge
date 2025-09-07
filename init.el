@@ -17,6 +17,26 @@
 ;;
 ;;; Code:
 
+(when (not forge--nix)
+  ;; Initialize and refresh `package.el' on non-Nix systems.
+  ;; Since we disable automatic package initialization, we need to
+  ;; explicitly bootstrap the package process here.
+  (require 'package)
+
+  ;; Initialize only once, if not already done.
+  (unless (bound-and-true-p package--initialized)
+    (package-initialize))
+
+  (unless (package-installed-p 'use-package)
+    ;; Refresh only when the archive cache is empty.
+    (unless (seq-empty-p package-archive-contents)
+      (package-refresh-contents))
+
+    ;; Ensure `use-package` is installed.
+    (package-install 'use-package))
+
+  (require 'use-package))
+
 (require '+editor)
 (require '+theme)
 
