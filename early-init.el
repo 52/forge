@@ -25,20 +25,23 @@
   (error "This configuration requires minimum GNU Emacs %d; you have version %d"
          emacs-minimal-version emacs-major-version))
 
+;; Alias `file-name-concat' -> `concat-path'.
+(defalias 'concat-path #'file-name-concat)
+
 (defvar forge-state-directory
-  (expand-file-name "forge" (or (getenv "XDG_STATE_HOME") "~/.local/state"))
+  (concat-path (or (getenv "XDG_STATE_HOME") "~/.local/state") "forge")
   "The directory for storing persistent state data.
 Follows the XDG Base Directory specification for state files.
 See: https://specifications.freedesktop.org/basedir-spec/latest")
 
 (defvar forge-data-directory
-  (expand-file-name "forge" (or (getenv "XDG_DATA_HOME") "~/.local/share"))
+  (concat-path (or (getenv "XDG_DATA_HOME") "~/.local/share") "forge")
   "The directory for storing application data files.
 Follows the XDG Base Directory specification for data files.
 See: https://specifications.freedesktop.org/basedir-spec/latest")
 
 (defvar forge-cache-directory
-  (expand-file-name "forge" (or (getenv "XDG_CACHE_HOME") "~/.cache"))
+  (concat-path (or (getenv "XDG_CACHE_HOME") "~/.cache") "forge")
   "The directory for storing temporary cache files.
 Follows the XDG Base Directory specification for cache files.
 See: https://specifications.freedesktop.org/basedir-spec/latest")
@@ -79,14 +82,14 @@ For now this maintains the default but can be adjusted if needed.")
 (setq read-process-output-max (* 4 1024 1024))
 
 ;; Keep customization changes out of `init.el' by writing them to `custom.el'.
-(setq custom-file (file-name-concat user-emacs-directory "custom.el"))
+(setq custom-file (concat-path user-emacs-directory "custom.el"))
 (load custom-file 'noerror 'nomessage)
 
 ;; Set the `custom-theme-directory' to our `themes' folder.
-(setq custom-theme-directory (expand-file-name "themes" user-emacs-directory))
+(setq custom-theme-directory (concat-path user-emacs-directory "themes"))
 
 ;; Prepend the `modules' folder to the `load-path'.
-(add-to-list 'load-path (expand-file-name "modules" user-emacs-directory))
+(add-to-list 'load-path (concat-path user-emacs-directory "modules"))
 
 (when forge--debug
   ;; Enable verbose debug prints.
@@ -96,8 +99,8 @@ For now this maintains the default but can be adjusted if needed.")
   (setq debug-on-error t))
 
 (when (boundp 'native-comp-eln-load-path)
-  ;; Explicitly redirect `*.eln' artifacts to "`forge-cache-directory'/eln".
-  (startup-redirect-eln-cache (expand-file-name "eln" forge-cache-directory))
+  ;; Redirect `*.eln' artifacts to "`forge-cache-directory'/eln-cache".
+  (startup-redirect-eln-cache (concat-path forge-cache-directory "eln-cache"))
 
   ;; Suppress compiler warnings and annoying popups.
   ;; These settings will be enabled when `DEBUG=1'.
@@ -154,7 +157,7 @@ For now this maintains the default but can be adjusted if needed.")
 
 ;; Hide the scroll bar from the very first frame.
 ;; Toggle back with `M-x scroll-bar-mode'.
-(push '(vertical-scroll-bars) default-frame-alist)
+(push '(vertical-scroll-bars . 0) default-frame-alist)
 (setq scroll-bar-mode nil)
 
 ;; Defer loading `package.el' until the `init.el' loads.

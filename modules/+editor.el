@@ -5,19 +5,19 @@
 ;; Author: Max Karou <maxkarou@protonmail.com>
 ;; URL: https://github.com/52/forge
 ;;
-;; Licensed under MIT License, or Apache Version 2.0, at your discretion.
+;; SPDX-License-Identifier: MIT OR Apache-2.0
 ;;
 ;; MIT License: http://opensource.org/licenses/MIT
 ;; Apache Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
 ;;
-;; Usage of this file is permitted solely under a sanctioned license.
+;; This project is dual-licensed under MIT License and Apache License 2.0.
+;; You may use this file under either license at your discretion.
 ;;
 ;;; Commentary:
 ;;
 ;;; Code:
 
 (use-package emacs
-  :ensure nil
   :preface
   (defun forge--report-init-time ()
     "Report the total startup time and garbage collection statistics."
@@ -47,15 +47,49 @@
   ;; Wrap at word boundaries when wrapping is enabled.
   (setq-default word-wrap t)
 
-  ;; Schedule the reporting of startup statistics after startup.
-  ;; This will display the total startup time and the number of GC operations.
+  ;; Do not create lockfiles (".#file").
+  (setq create-lockfiles nil)
+
+  ;; Do not create backup files ("file~").
+  (setq make-backup-files nil)
+
+  ;; Do not create autosave files ("#file#").
+  (setq auto-save-default nil)
+
+  ;; Report statistics after startup.
   (add-hook 'emacs-startup-hook #'forge--report-init-time))
 
-(use-package spacious-padding
-  :ensure nil
-  :demand t
-  :hook (after-init . spacious-padding-mode))
+(use-package undo-fu
+  :preface
+  (define-minor-mode undo-fu-mode
+    "Enables `undo-fu' for the current session."
+    :init-value nil
+    :global t)
+  :config
+  ;; Increase the soft limit to 256kB.
+  (setq undo-limit 256000)
+
+  ;; Increase the strong limit to 2MB.
+  (setq undo-strong-limit 2000000)
+
+  ;; Increase the outer limit to 36MB.
+  (setq undo-outer-limit 36000000)
+
+  ;; Remap `undo' and `redo' to `undo-fu' functions.
+  (global-set-key [remap undo] #'undo-fu-only-undo)
+  (global-set-key [remap redo] #'undo-fu-only-redo)
+
+  ;; Enable `undo-fu-mode' after startup.
+  (add-hook 'emacs-startup-hook #'undo-fu-mode))
+
+(use-package undo-fu-session
+  :config
+  ;; Write undo files to "`forge-cache-directory'/undo".
+  (setq undo-fu-session-directory (concat-path forge-cache-directory "undo"))
+
+  ;; Enable `undo-fu-session' when `undo-fu-mode' is active.
+  (add-hook 'undo-fu-mode-hook #'undo-fu-session-global-mode))
 
 (provide '+editor)
 
-;; +editor.el ends here
+;;; +editor.el ends here

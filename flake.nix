@@ -39,6 +39,9 @@
         ##
         #@ [Package]
         packages = with epkgs; [
+          undo-fu
+          undo-fu-session
+
           evil
         ];
 
