@@ -5,12 +5,13 @@
 ;; Author: Max Karou <maxkarou@protonmail.com>
 ;; URL: https://github.com/52/forge
 ;;
-;; Licensed under MIT License, or Apache Version 2.0, at your discretion.
+;; SPDX-License-Identifier: MIT OR Apache-2.0
 ;;
 ;; MIT License: http://opensource.org/licenses/MIT
 ;; Apache Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
 ;;
-;; Usage of this file is permitted solely under a sanctioned license.
+;; This project is dual-licensed under MIT License and Apache License 2.0.
+;; You may use this file under either license at your discretion.
 ;;
 ;;; Commentary:
 ;;
@@ -24,4 +25,4 @@
 
 (provide '+theme)
 
-;; +theme.el ends here
+;;; +theme.el ends here
