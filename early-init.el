@@ -102,6 +102,9 @@ For now this maintains the default but can be adjusted if needed.")
   ;; Redirect `*.eln' artifacts to "`forge-cache-directory'/eln-cache".
   (startup-redirect-eln-cache (concat-path forge-cache-directory "eln-cache"))
 
+  ;; Ask the user before terminating compilations on exit.
+  (setq native-comp-async-query-on-exit t)
+
   ;; Suppress compiler warnings and annoying popups.
   ;; These settings will be enabled when `DEBUG=1'.
   (setq native-comp-async-report-warnings-errors forge--debug)
