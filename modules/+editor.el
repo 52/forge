@@ -79,8 +79,8 @@
   (global-set-key [remap undo] #'undo-fu-only-undo)
   (global-set-key [remap redo] #'undo-fu-only-redo)
 
-  ;; Enable `undo-fu-mode' after startup.
-  (add-hook 'emacs-startup-hook #'undo-fu-mode))
+  ;; Enable `undo-fu-mode' after initialization.
+  (add-hook 'after-init-hook #'undo-fu-mode))
 
 (use-package undo-fu-session
   :config
@@ -89,6 +89,20 @@
 
   ;; Enable `undo-fu-session' when `undo-fu-mode' is active.
   (add-hook 'undo-fu-mode-hook #'undo-fu-session-global-mode))
+
+(use-package autorevert
+  :config
+  ;; Enable verbose logging when reverting buffers.
+  (setq auto-revert-verbose t)
+  
+  ;; Do not pause reverting on user input.
+  (setq auto-revert-stop-on-user-input nil)
+
+  ;; Revert saved buffers without prompt.
+  (setq revert-without-query (list "."))
+
+  ;; Enable `global-auto-revert-mode' after initialization.
+  (add-hook 'after-init-hook #'global-auto-revert-mode))
 
 (provide '+editor)
 
