@@ -25,19 +25,19 @@
   (error "This configuration requires minimum GNU Emacs %d; you have version %d"
          emacs-minimal-version emacs-major-version))
 
-(defvar forge-directory-state
+(defvar forge-state-directory
   (expand-file-name "forge" (or (getenv "XDG_STATE_HOME") "~/.local/state"))
   "The directory for storing persistent state data.
 Follows the XDG Base Directory specification for state files.
 See: https://specifications.freedesktop.org/basedir-spec/latest")
 
-(defvar forge-directory-data
+(defvar forge-data-directory
   (expand-file-name "forge" (or (getenv "XDG_DATA_HOME") "~/.local/share"))
   "The directory for storing application data files.
 Follows the XDG Base Directory specification for data files.
 See: https://specifications.freedesktop.org/basedir-spec/latest")
 
-(defvar forge-directory-cache
+(defvar forge-cache-directory
   (expand-file-name "forge" (or (getenv "XDG_CACHE_HOME") "~/.cache"))
   "The directory for storing temporary cache files.
 Follows the XDG Base Directory specification for cache files.
@@ -96,8 +96,8 @@ For now this maintains the default but can be adjusted if needed.")
   (setq debug-on-error t))
 
 (when (boundp 'native-comp-eln-load-path)
-  ;; Explicitly redirect `*.eln' artifacts.
-  (startup-redirect-eln-cache "eln-cache")
+  ;; Explicitly redirect `*.eln' artifacts to "`forge-cache-directory'/eln".
+  (startup-redirect-eln-cache (expand-file-name "eln" forge-cache-directory))
 
   ;; Suppress compiler warnings and annoying popups.
   ;; These settings will be enabled when `DEBUG=1'.
