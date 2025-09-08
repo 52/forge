@@ -118,6 +118,9 @@
   ;; Exclude TRAMP and privileged paths.
   (setq recentf-exclude (list "^/\\(?:ssh\\|su\\|sudo\\)?:"))
 
+  ;; Write recentf files to "`forge-cache-directory'/recentf".
+  (setq recentf-save-file (concat-path forge-cache-directory "recentf"))
+
   ;; Run `recentf-cleanup' before exiting.
   (add-hook 'kill-emacs-hook #'recentf-cleanup)
 
