@@ -90,6 +90,11 @@
   ;; Enable `undo-fu-session' when `undo-fu-mode' is active.
   (add-hook 'undo-fu-mode-hook #'undo-fu-session-global-mode))
 
+(use-package bookmark
+  :config
+  ;; Write bookmarks to "`forge-cache-directory'/bookmark".
+  (setq bookmark-default-file (concat-path forge-cache-directory "bookmark")))
+
 (use-package autorevert
   :config
   ;; Enable verbose logging when reverting buffers.
@@ -118,7 +123,7 @@
   ;; Exclude TRAMP and privileged paths.
   (setq recentf-exclude (list "^/\\(?:ssh\\|su\\|sudo\\)?:"))
 
-  ;; Write recentf files to "`forge-cache-directory'/recentf".
+  ;; Write recentf data to "`forge-cache-directory'/recentf".
   (setq recentf-save-file (concat-path forge-cache-directory "recentf"))
 
   ;; Run `recentf-cleanup' before exiting.
@@ -140,7 +145,7 @@
 
 (use-package saveplace
   :config
-  ;; Write saveplace files to "`forge-cache-directory'/saveplace".
+  ;; Write saveplace data to "`forge-cache-directory'/saveplace".
   (setq save-place-file (concat-path forge-cache-directory "saveplace"))
 
   ;; Enable `save-place-mode' after initialization.
