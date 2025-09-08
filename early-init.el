@@ -81,6 +81,10 @@ For now this maintains the default but can be adjusted if needed.")
 ;; by reducing the overhead encountered in data transfer.
 (setq read-process-output-max (* 4 1024 1024))
 
+;; Prefer newer source files over older compiled artifacts.
+;; This helps avoid loading stale `*.elc' and `*.eln' files.
+(setq load-prefer-newer t)
+
 ;; Keep customization changes out of `init.el' by writing them to `custom.el'.
 (setq custom-file (concat-path user-emacs-directory "custom.el"))
 (load custom-file 'noerror 'nomessage)
@@ -115,16 +119,16 @@ For now this maintains the default but can be adjusted if needed.")
 (set-language-environment "UTF-8")
 (setq default-input-method nil)
 
-;; Inhibit font compacting which can be very expensive, especially on Windows.
-;; This disables it permanently, at the cost of higher memory usage.
-(setq inhibit-compacting-font-caches t)
-
-(when (and (not (daemonp)) (not noninteractive))
+(when (not noninteractive)
   ;; Prevent GNU Emacs from resizing the frame when changing the font.
   (setq frame-resize-pixelwise t)
 
   ;; Prevent GNU Emacs from resizing itself to a specific column size.
   (setq frame-inhibit-implied-resize t)
+
+  ;; Font compacting which can be very expensive, especially on Windows.
+  ;; This disables it permanently, at the cost of higher memory usage.
+  (setq inhibit-compacting-font-caches t)
 
   ;; Inhibit an unnecessary pass over `auto-mode-alist'.
   (setq auto-mode-case-fold nil)
