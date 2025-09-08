@@ -104,6 +104,27 @@
   ;; Enable `global-auto-revert-mode' after initialization.
   (add-hook 'after-init-hook #'global-auto-revert-mode))
 
+(use-package recentf
+  :config
+  ;; Keep a reasonably large history (300 entries).
+  (setq recentf-max-saved-items 300)
+
+  ;; Display up to 12 items in menus.
+  (setq recentf-max-menu-items 12)
+
+  ;; Do not cleanup automatically in non-daemon sessions.
+  ;; This is handled explicitly on exit.
+  (setq recentf-auto-cleanup (if (daemonp) 300 'never))
+
+  ;; Exclude TRAMP and privileged paths.
+  (setq recentf-exclude (list "^/\\(?:ssh\\|su\\|sudo\\)?:"))
+
+  ;; Run `recentf-cleanup' before exiting.
+  (add-hook 'kill-emacs-hook #'recentf-cleanup)
+
+  ;; Enable `recentf-mode' after initialization.
+  (add-hook 'after-init-hook #'recentf-mode))
+
 (provide '+editor)
 
 ;;; +editor.el ends here
