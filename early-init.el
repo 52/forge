@@ -120,11 +120,14 @@ For now this maintains the default but can be adjusted if needed.")
 (setq default-input-method nil)
 
 (when (not noninteractive)
-  ;; Prevent GNU Emacs from resizing the frame when changing the font.
+  ;; Prevent GNU Emacs from resizing itself in steps.
   (setq frame-resize-pixelwise t)
 
   ;; Prevent GNU Emacs from resizing itself to a specific column size.
   (setq frame-inhibit-implied-resize t)
+
+  ;; Prevent GNU Emacs from resizing pixelwise.
+  (setq window-resize-pixelwise nil)
 
   ;; Font compacting which can be very expensive, especially on Windows.
   ;; This disables it permanently, at the cost of higher memory usage.
