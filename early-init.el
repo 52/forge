@@ -133,6 +133,14 @@ For now this maintains the default but can be adjusted if needed.")
   ;; This disables it permanently, at the cost of higher memory usage.
   (setq inhibit-compacting-font-caches t)
 
+  ;; Prevent unnecessary renders in non-selected windows.
+  (setq-default cursor-in-non-selected-windows nil)
+  (setq highlight-nonselected-windows nil)
+
+  ;; Enable more performant scrolling over unfontified regions.
+  ;; This may cause inaccurate syntax highlighting after scrolling.
+  (setq fast-but-imprecise-scrolling t)
+
   ;; Inhibit an unnecessary pass over `auto-mode-alist'.
   (setq auto-mode-case-fold nil)
 
