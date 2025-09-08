@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -10,6 +11,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       flake-utils,
       ...
     }:
@@ -17,6 +19,10 @@
       system:
       let
         pkgs = import nixpkgs {
+          inherit system;
+        };
+
+        pkgs-unstable = import nixpkgs-unstable {
           inherit system;
         };
 
@@ -30,63 +36,65 @@
         #@ Package
         package = pkgs.emacs-pgtk;
 
-        ## Set of GNU Emacs packages for the package version.
+        ## Sets of GNU Emacs packages.
         ##
         #@ AttrSet
-        epkgs = pkgs.emacsPackagesFor package;
+        epkgs = {
+          ## Set of stable packages.
+          ##
+          #@ AttrSet
+          stable = pkgs.emacsPackagesFor package;
+
+          ## Set of unstable packages.
+          ##
+          #@ AttrSet
+          unstable = pkgs-unstable.emacsPackagesFor package;
+        };
 
         ## List of packages to install.
         ##
         #@ [Package]
-        packages = with epkgs; [
-          undo-fu
-          undo-fu-session
+        packages =
+          (with epkgs.stable; [
+            undo-fu-session
+            undo-fu
+            evil
+          ])
+          ++ (with epkgs.unstable; [
+          ]);
 
-          evil
-        ];
-
-        ## Create a custom GNU Emacs package.
+        ## List of grammars to install.
+        ## See: https://github.com/orgs/tree-sitter-grammars
         ##
-        #@ AttrSet -> Derivation
-        mkEmacsPackage =
-          {
-            ## Tree-sitter packages to install.
-            ## See: https://github.com/orgs/tree-sitter-grammars
-            ##
-            #@ Package
-            grammars ? epkgs.treesit-grammars.with-all-grammars,
-
-            ## List of extra packages to install.
-            ##
-            #@ [Package]
-            extraPackages ? [ ],
-          }:
-          pkgs.symlinkJoin {
-            inherit name;
-
-            paths = [
-              (epkgs.emacsWithPackages (_: packages ++ extraPackages ++ [ grammars ]))
-            ];
-
-            buildInputs = [
-              pkgs.makeWrapper
-            ];
-
-            postBuild = ''
-              mkdir -p $out/src
-              cp -r "${self}"/* $out/src
-              chmod -R u+w $out/src
-
-              wrapProgram $out/bin/emacs \
-                --set NIX "1" \
-                --append-flags "--init-directory $out/src"
-            '';
-          };
+        #@ [Package]
+        grammars = with epkgs.stable; [
+          treesit-grammars.with-all-grammars
+        ];
 
         ## The GNU Emacs derivation.
         ##
         #@ Derivation
-        forge = mkEmacsPackage { };
+        forge = pkgs.symlinkJoin {
+          inherit name;
+
+          paths = with epkgs.stable; [
+            (emacsWithPackages (_: packages ++ grammars))
+          ];
+
+          buildInputs = [
+            pkgs.makeWrapper
+          ];
+
+          postBuild = ''
+            mkdir -p $out/src
+            cp -r "${self}"/* $out/src
+            chmod -R u+w $out/src
+
+            wrapProgram $out/bin/emacs \
+              --set NIX "1" \
+              --append-flags "--init-directory $out/src"
+          '';
+        };
       in
       {
         apps.default = {
