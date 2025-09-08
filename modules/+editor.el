@@ -138,6 +138,14 @@
   ;; Enable `savehist-mode' after initialization.
   (add-hook 'after-init-hook #'savehist-mode))
 
+(use-package saveplace
+  :config
+  ;; Write saveplace files to "`forge-cache-directory'/saveplace".
+  (setq save-place-file (concat-path forge-cache-directory "saveplace"))
+
+  ;; Enable `save-place-mode' after initialization.
+  (add-hook 'after-init-hook #'save-place-mode))
+
 (provide '+editor)
 
 ;;; +editor.el ends here
