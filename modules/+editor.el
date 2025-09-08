@@ -66,8 +66,8 @@
   ;; Scroll conservatively (≤ 20 lines) to keep point visible.
   (setq scroll-conservatively 20)
 
-  ;; Keep 10 lines above and below the point while scrolling.
-  (setq scroll-margin 10)
+  ;; Keep 15 lines above and below the point while scrolling.
+  (setq scroll-margin 15)
 
   ;; Prevent the cursor and parantheses from blinking.
   (setq blink-matching-paren nil)
@@ -86,13 +86,13 @@
     :init-value nil
     :global t)
   :config
-  ;; Increase the soft limit to 256kB.
+  ;; Increase the default limit (256kB).
   (setq undo-limit 256000)
 
-  ;; Increase the strong limit to 2MB.
+  ;; Increase the strong limit (2MB).
   (setq undo-strong-limit 2000000)
 
-  ;; Increase the outer limit to 36MB.
+  ;; Increase the outer limit (36MB).
   (setq undo-outer-limit 36000000)
 
   ;; Remap `undo' and `redo' to `undo-fu' functions.
