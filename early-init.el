@@ -165,9 +165,10 @@ For now this maintains the default but can be adjusted if needed.")
 (push '(tool-bar-lines . 0) default-frame-alist)
 (setq tool-bar-mode nil)
 
-;; Hide the scroll bar from the very first frame.
+;; Hide the scroll bars from the very first frame.
 ;; Toggle back with `M-x scroll-bar-mode'.
-(push '(vertical-scroll-bars . 0) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
+(push '(horizontal-scroll-bars) default-frame-alist)
 (setq scroll-bar-mode nil)
 
 ;; Defer loading `package.el' until the `init.el' loads.
