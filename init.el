@@ -38,7 +38,6 @@
   (require 'use-package))
 
 (require '+editor)
-(require '+theme)
 
 (require '+evil)
 

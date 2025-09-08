@@ -34,6 +34,12 @@
   ;; Do not create autosave files ("#file#").
   (setq auto-save-default nil)
 
+  ;; Prefer single-key answers for `read-answer' prompts.
+  (setq read-answer-short t)
+
+  ;; Accept `y/n' instead of `yes/no' globally.
+  (setq use-short-answers t)
+
   ;; Consider a single space sufficient to end sentences.
   (setq sentence-end-double-space nil)
 
@@ -56,11 +62,19 @@
   ;; Use spaces by default in all buffers to keep diffs stable.
   (setq-default indent-tabs-mode nil)
 
-  ;; Prefer single-key answers for `read-answer' prompts.
-  (setq read-answer-short t)
+  ;; Avoid sudden recentering during navigation.
+  ;; Scroll conservatively (≤ 20 lines) to keep point visible.
+  (setq scroll-conservatively 20)
 
-  ;; Accept `y/n' instead of `yes/no' globally.
-  (setq use-short-answers t)
+  ;; Keep 10 lines above and below the point while scrolling.
+  (setq scroll-margin 10)
+
+  ;; Prevent the cursor and parantheses from blinking.
+  (setq blink-matching-paren nil)
+  (setq blink-cursor-mode nil)
+
+  ;; Load the `hades' theme after startup.
+  (add-hook 'emacs-startup-hook (lambda () (load-theme 'hades t)))
 
   ;; Report statistics after startup.
   (add-hook 'emacs-startup-hook #'forge--report-init-time))
