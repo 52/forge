@@ -113,7 +113,6 @@
   (setq recentf-max-menu-items 12)
 
   ;; Do not cleanup automatically in non-daemon sessions.
-  ;; This is handled explicitly on exit.
   (setq recentf-auto-cleanup (if (daemonp) 300 'never))
 
   ;; Exclude TRAMP and privileged paths.
