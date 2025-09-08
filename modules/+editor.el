@@ -25,15 +25,14 @@
            (gcs (if (boundp 'gcs-done) gcs-done 0)))
       (message "Total startup time: %.3fs (%d GCs)" total gcs)))
   :config
-  ;; Prefer spaces over hard TAB characters for indentation.
-  ;; Use spaces by default in all buffers to keep diffs stable.
-  (setq-default indent-tabs-mode nil)
+  ;; Do not create lockfiles (".#file").
+  (setq create-lockfiles nil)
 
-  ;; Set the visual width of a literal TAB character.
-  (setq-default tab-width 2)
+  ;; Do not create backup files ("file~").
+  (setq make-backup-files nil)
 
-  ;; Indent with TAB first then fall back to `completion-at-point'.
-  (setq-default tab-always-indent 'complete)
+  ;; Do not create autosave files ("#file#").
+  (setq auto-save-default nil)
 
   ;; Consider a single space sufficient to end sentences.
   (setq sentence-end-double-space nil)
@@ -47,14 +46,15 @@
   ;; Wrap at word boundaries when wrapping is enabled.
   (setq-default word-wrap t)
 
-  ;; Do not create lockfiles (".#file").
-  (setq create-lockfiles nil)
+  ;; Set the visual width of a literal TAB character.
+  (setq-default tab-width 2)
 
-  ;; Do not create backup files ("file~").
-  (setq make-backup-files nil)
+  ;; Indent with TAB first then fall back to `completion-at-point'.
+  (setq-default tab-always-indent 'complete)
 
-  ;; Do not create autosave files ("#file#").
-  (setq auto-save-default nil)
+  ;; Prefer spaces over hard TAB characters for indentation.
+  ;; Use spaces by default in all buffers to keep diffs stable.
+  (setq-default indent-tabs-mode nil)
 
   ;; Report statistics after startup.
   (add-hook 'emacs-startup-hook #'forge--report-init-time))
