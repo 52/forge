@@ -124,6 +124,17 @@
   ;; Enable `recentf-mode' after initialization.
   (add-hook 'after-init-hook #'recentf-mode))
 
+(use-package savehist
+  :config
+  ;; Increase the maximum history (300 entries).
+  (setq history-length 300)
+
+  ;; Write savehist files to "`forge-cache-directory'/savehist".
+  (setq savehist-file (concat-path forge-cache-directory "savehist"))
+
+  ;; Enable `savehist-mode' after initialization.
+  (add-hook 'after-init-hook #'savehist-mode))
+
 (provide '+editor)
 
 ;;; +editor.el ends here
