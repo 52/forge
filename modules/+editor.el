@@ -56,6 +56,12 @@
   ;; Use spaces by default in all buffers to keep diffs stable.
   (setq-default indent-tabs-mode nil)
 
+  ;; Prefer single-key answers for `read-answer' prompts.
+  (setq read-answer-short t)
+
+  ;; Accept `y/n' instead of `yes/no' globally.
+  (setq use-short-answers t)
+
   ;; Report statistics after startup.
   (add-hook 'emacs-startup-hook #'forge--report-init-time))
 
