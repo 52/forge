@@ -209,6 +209,21 @@
   (dolist (hook forge--display-hl-line-hooks)
     (add-hook hook #'hl-line-mode)))
 
+(use-package paren
+  :unless noninteractive
+  :config
+  ;; Reduce the delay before matching.
+  (setq show-paren-delay 0.1)
+
+  ;; Highlight the matching pair when point is inside.
+  (setq show-paren-when-point-inside-paren t)
+
+  ;; Highlight the matching pair when point is near.
+  (setq show-paren-when-point-in-periphery t)
+
+  ;; Enable `show-paren-mode' after initialization.
+  (add-hook 'after-init-hook #'show-paren-mode))
+
 (use-package smartparens
   :unless noninteractive
   :config
