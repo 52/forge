@@ -38,6 +38,7 @@
   (require 'use-package))
 
 (require '+editor)
+(require '+view)
 
 (require '+evil)
 
