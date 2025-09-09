@@ -209,6 +209,26 @@
   (dolist (hook forge--display-hl-line-hooks)
     (add-hook hook #'hl-line-mode)))
 
+(use-package smartparens
+  :unless noninteractive
+  :config
+  ;; Load the upstream defaults for common languages.
+  ;; See: https://github.com/fuco1/smartparens/blob/master/smartparens-config.el
+  (require 'smartparens-config)
+
+  ;; Disables `smartparens' overlays.
+  ;; This is already handled by `show-parens'.
+  (setq sp-highlight-pair-overlay nil)
+  (setq sp-highlight-wrap-overlay nil)
+  (setq sp-highlight-wrap-tag-overlay nil)
+
+  ;; Limit prefix scanning to avoid performance hits.
+  ;; This prevents slowdowns when scanning large expressions.
+  (setq sp-max-prefix-length 25)
+
+  ;; Enable `smartparens-global-mode' after initialization.
+  (add-hook 'after-init-hook #'smartparens-global-mode))
+
 (provide '+editor)
 
 ;;; +editor.el ends here

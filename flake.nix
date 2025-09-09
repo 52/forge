@@ -58,6 +58,8 @@
           undo-fu-session
           undo-fu
 
+          smartparens
+
           evil
         ];
 
