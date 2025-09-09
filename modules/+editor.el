@@ -172,6 +172,7 @@
   (add-hook 'after-init-hook #'save-place-mode))
 
 (use-package display-line-numbers
+  :unless noninteractive
   :preface
   (defvar forge--display-line-number-hooks
     '(prog-mode-hook text-mode-hook conf-mode-hook)
@@ -193,6 +194,7 @@
     (add-hook hook #'display-line-numbers-mode)))
 
 (use-package hl-line
+  :unless noninteractive
   :preface
   (defvar forge--display-hl-line-hooks
     '(prog-mode-hook text-mode-hook conf-mode-hook)
