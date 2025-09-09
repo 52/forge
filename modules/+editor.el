@@ -34,12 +34,6 @@
   ;; Do not create autosave files ("#file#").
   (setq auto-save-default nil)
 
-  ;; Prefer single-key answers for `read-answer' prompts.
-  (setq read-answer-short t)
-
-  ;; Accept `y/n' instead of `yes/no' globally.
-  (setq use-short-answers t)
-
   ;; Consider a single space sufficient to end sentences.
   (setq sentence-end-double-space nil)
 

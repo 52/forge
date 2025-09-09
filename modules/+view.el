@@ -44,6 +44,23 @@
   ;; Load the `hades' theme after startup.
   (add-hook 'emacs-startup-hook (lambda () (load-theme 'hades t))))
 
+(use-package minibuffer
+  :unless noninteractive
+  :config
+  ;; Prefer single-key answers for `read-answer' prompts.
+  (setq read-answer-short t)
+
+  ;; Accept `y/n' instead of `yes/no' globally.
+  (setq use-short-answers t)
+
+  ;; Display active key-sequences in the minibuffer.
+  ;; This is the equivalent of `showcmd' in vim.
+  (setq echo-keystrokes 0.2)
+
+  ;; Allow for recursive minibuffers during input.
+  ;; This is needed by advanced commands and completion UIs.
+  (setq enable-recursive-minibuffer))
+
 (use-package display-line-numbers
   :unless noninteractive
   :preface
