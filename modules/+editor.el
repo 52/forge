@@ -192,6 +192,16 @@
   (dolist (hook forge--display-line-number-hooks)
     (add-hook hook #'display-line-numbers-mode)))
 
+(use-package hl-line
+  :preface
+  (defvar forge--display-hl-line-hooks
+    '(prog-mode-hook text-mode-hook conf-mode-hook)
+    "List of major mode hooks where `hl-line-mode' is enabled.")
+  :config
+  ;; Enable `hl-line-mode' in common editing modes.
+  ;; This adds a hook for all items in `forge--display-hl-line-hooks'.
+  (dolist (hook forge--display-hl-line-hooks)
+    (add-hook hook #'hl-line-mode)))
 
 (provide '+editor)
 
