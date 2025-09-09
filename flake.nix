@@ -54,14 +54,12 @@
         ## List of packages to install.
         ##
         #@ [Package]
-        packages =
-          (with epkgs.stable; [
-            undo-fu-session
-            undo-fu
-            evil
-          ])
-          ++ (with epkgs.unstable; [
-          ]);
+        packages = with epkgs.unstable; [
+          undo-fu-session
+          undo-fu
+
+          evil
+        ];
 
         ## List of grammars to install.
         ## See: https://github.com/orgs/tree-sitter-grammars
