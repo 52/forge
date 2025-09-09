@@ -62,13 +62,6 @@
   ;; Use spaces by default in all buffers to keep diffs stable.
   (setq-default indent-tabs-mode nil)
 
-  ;; Avoid sudden recentering during navigation.
-  ;; Scroll conservatively (≤ 20 lines) to keep point visible.
-  (setq scroll-conservatively 20)
-
-  ;; Keep 15 lines above and below the point while scrolling.
-  (setq scroll-margin 15)
-
   ;; Report statistics after startup.
   (add-hook 'emacs-startup-hook #'forge--report-init-time))
 

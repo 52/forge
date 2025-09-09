@@ -20,6 +20,24 @@
 (use-package frame
   :unless noninteractive
   :config
+  ;; Number of lines above and below the point.
+  (setq scroll-margin 10)
+
+  ;; Avoid sudden recentering during navigation.
+  ;; Large values (`101+') effectively disable this completely.
+  (setq scroll-conservatively 101)
+
+  ;; Enable faster scrolling through unfontified regions.
+  ;; Improves performance at the cost of inaccurate highlights.
+  (setq fast-but-imprecise-scrolling t)
+
+  ;; Preserve the point's position when paging.
+  (setq scroll-preserve-screen-position t)
+
+  ;; Disable automatic per-line vertical scrolling.
+  ;; Improves performance and resolves half-jumps when scrolling.
+  (setq auto-window-vscroll nil)
+
   ;; Prevent the cursor from blinking.
   (setq blink-cursor-mode nil)
 
@@ -56,7 +74,7 @@
     "List of major mode hooks where `hl-line-mode' is enabled.")
   :config
   ;; Only highlight the current line in the selected window.
-  ;; This prevents non-selected windows from tracking their on point.
+  ;; This prevents non-selected windows from tracking their own point.
   (setq hl-line-sticky-flag nil)
 
   ;; Enable `hl-line-mode' in common editing modes.
