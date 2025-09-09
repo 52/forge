@@ -229,6 +229,13 @@
   ;; Enable `smartparens-global-mode' after initialization.
   (add-hook 'after-init-hook #'smartparens-global-mode))
 
+(use-package xclip
+  :unless (display-graphic-p)
+  :config
+  ;; Enable `xclip-mode' in TTY sessions.
+  ;; This allows yanking to system clipboard and pasting from it.
+  (add-hook 'tty-setup-hook #'xclip-mode))
+
 (provide '+editor)
 
 ;;; +editor.el ends here

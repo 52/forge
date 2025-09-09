@@ -59,6 +59,7 @@
           undo-fu
 
           smartparens
+          xclip
 
           evil
         ];
