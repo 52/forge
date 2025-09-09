@@ -171,6 +171,28 @@
   ;; Enable `save-place-mode' after initialization.
   (add-hook 'after-init-hook #'save-place-mode))
 
+(use-package display-line-numbers
+  :preface
+  (defvar forge--display-line-number-hooks
+    '(prog-mode-hook text-mode-hook conf-mode-hook)
+    "List of major mode hooks where `display-line-numbers-mode' is enabled.")
+  :config
+  ;; Prefer relative line-numbers for overall navigation.
+  ;; However keep the current line absolute (vim-like).
+  (setq-default display-line-numbers 'relative)
+  (setq-default display-line-numbers-type 'relative)
+  (setq-default display-line-numbers-current-absolute t)
+
+  ;; Reserve a fixed width for the line-number display.
+  ;; This reduces the cost from computing the space dynamically.
+  (setq-default display-line-numbers-width 3)
+
+  ;; Enable `display-line-numbers-mode' in common editing modes.
+  ;; This adds a hook for all items in `forge--display-line-number-hooks'.
+  (dolist (hook forge--display-line-number-hooks)
+    (add-hook hook #'display-line-numbers-mode)))
+
+
 (provide '+editor)
 
 ;;; +editor.el ends here
