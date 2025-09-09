@@ -104,7 +104,9 @@ For now this maintains the default but can be adjusted if needed.")
 
 (when (boundp 'native-comp-eln-load-path)
   ;; Redirect `*.eln' artifacts to "`forge-cache-directory'/eln-cache".
-  (startup-redirect-eln-cache (concat-path forge-cache-directory "eln-cache"))
+  (let* ((eln-cache (concat-path forge-cache-directory "eln-cache")))
+    (setq native-compile-target-directory eln-cache)
+    (startup-redirect-eln-cache eln-cache))
 
   ;; Ask the user before terminating compilations on exit.
   (setq native-comp-async-query-on-exit t)
