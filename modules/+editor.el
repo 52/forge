@@ -198,6 +198,10 @@
     '(prog-mode-hook text-mode-hook conf-mode-hook)
     "List of major mode hooks where `hl-line-mode' is enabled.")
   :config
+  ;; Only highlight the current line in the selected window.
+  ;; This prevents non-selected windows from tracking their on point.
+  (setq hl-line-sticky-flag nil)
+
   ;; Enable `hl-line-mode' in common editing modes.
   ;; This adds a hook for all items in `forge--display-hl-line-hooks'.
   (dolist (hook forge--display-hl-line-hooks)
