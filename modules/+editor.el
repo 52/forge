@@ -69,13 +69,6 @@
   ;; Keep 15 lines above and below the point while scrolling.
   (setq scroll-margin 15)
 
-  ;; Prevent the cursor and parantheses from blinking.
-  (setq blink-matching-paren nil)
-  (setq blink-cursor-mode nil)
-
-  ;; Load the `hades' theme after startup.
-  (add-hook 'emacs-startup-hook (lambda () (load-theme 'hades t)))
-
   ;; Report statistics after startup.
   (add-hook 'emacs-startup-hook #'forge--report-init-time))
 

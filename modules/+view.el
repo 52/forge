@@ -17,6 +17,15 @@
 ;;
 ;;; Code:
 
+(use-package frame
+  :unless noninteractive
+  :config
+  ;; Prevent the cursor from blinking.
+  (setq blink-cursor-mode nil)
+
+  ;; Load the `hades' theme after startup.
+  (add-hook 'emacs-startup-hook (lambda () (load-theme 'hades t))))
+
 (use-package display-line-numbers
   :unless noninteractive
   :preface
@@ -66,6 +75,9 @@
 
   ;; Highlight the matching pair when point is near.
   (setq show-paren-when-point-in-periphery t)
+
+  ;; Prevent parantheses from blinking.
+  (setq blink-matching-paren nil)
 
   ;; Enable `show-paren-mode' after initialization.
   (add-hook 'after-init-hook #'show-paren-mode))
