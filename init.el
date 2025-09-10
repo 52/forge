@@ -17,13 +17,17 @@
 ;;
 ;;; Code:
 
+(defconst forge-modules
+  '(+editor +view +evil)
+  "List of modules to load at startup.")
+
 (when (not forge--nix)
   ;; Initialize and refresh `package.el' on non-Nix systems.
-  ;; Since we disable automatic package initialization, we need to
-  ;; explicitly bootstrap the package process here.
+  ;; Since we disabled the automatic package initialization,
+  ;; we need to explicitly bootstrap the package process.
   (require 'package)
 
-  ;; Initialize only once, if not already done.
+  ;; Initialize only once - if not already done.
   (unless (bound-and-true-p package--initialized)
     (package-initialize))
 
@@ -32,14 +36,13 @@
     (unless (seq-empty-p package-archive-contents)
       (package-refresh-contents))
 
-    ;; Ensure `use-package` is installed.
+    ;; Ensure that `use-package` is installed.
     (package-install 'use-package))
 
   (require 'use-package))
 
-(require '+editor)
-(require '+view)
-
-(require '+evil)
+;; Require all `forge-modules' in sequence.
+;; Files must contain a matching `provide' statement for resolution.
+(mapc #'require forge-modules)
 
 ;;; init.el ends here
