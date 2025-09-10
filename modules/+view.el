@@ -44,13 +44,6 @@
   ;; Load the `hades' theme after startup.
   (add-hook 'emacs-startup-hook (lambda () (load-theme 'hades t))))
 
-(use-package fringe
-  :unless noninteractive
-  :config
-  ;; Remove visual indicators from widow margins.
-  ;; This maximizes the screen real-estate and _is_ cleaner.
-  (set-fringe-mode '(0 . 0)))
-
 (use-package minibuffer
   :unless noninteractive
   :config
