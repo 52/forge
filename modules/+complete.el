@@ -49,6 +49,10 @@
   ;; and produces a superior (manual) completion experience.
   (setq-default tab-always-indent nil)
 
+  ;; Kill Corfu when exiting `evil' insert state.
+  ;; This prevents any popups from lingering in normal mode.
+  (add-hook 'evil-insert-state-exit-hook #'corfu-quit)
+
   ;; Enable `global-corfu-mode' after initialization.
   (add-hook 'after-init-hook #'global-corfu-mode))
 
