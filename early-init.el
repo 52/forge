@@ -116,6 +116,11 @@ For now this maintains the default but can be adjusted if needed.")
   (setq native-comp-async-report-warnings-errors forge--debug)
   (setq native-comp-warning-on-missing-source forge--debug))
 
+;; Reduce the `pgtk-wait-for-event-timeout' for PGTK builds.
+;; This improves responsiveness of childframes and packages.
+(when (boundp 'pgtk-wait-for-event-timeout)
+  (setq pgtk-wait-for-event-timeout 0.001))
+
 ;; Set the language environment to UTF-8 and disable the default input method.
 ;; This ensures consistent Unicode handling across GNU Emacs.
 (set-language-environment "UTF-8")
