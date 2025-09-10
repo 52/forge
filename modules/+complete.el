@@ -19,9 +19,35 @@
 
 (use-package corfu
   :unless noninteractive
+  :preface
+  (defvar forge--corfu-disabled-modes
+    '(vterm-mode eshell-mode help-mode org-mode)
+    "List of modes where `global-corfu-mode' is disabled.")
   :config
-  ;; Indent with TAB first then fall back to `completion-at-point'.
-  (setq-default tab-always-indent 'complete)
+  ;; Enable cycling through completion candidates.
+  (setq corfu-cycle t)
+
+  ;; Set the maximum number of candidates shown.
+  (setq corfu-count 12)
+
+  ;; Set the maximum width of the popup.
+  (setq corfu-max-width 120)
+
+  ;; Preselect the prompt rather than the candidate.
+  (setq corfu-preselect 'prompt)
+
+  ;; Keep the minibuffer free of Corfu.
+  ;; This avoids conflicts with minibuffer-specific UIs.
+  (setq global-corfu-minibuffer nil)
+
+  ;; Set the specific modes where Corfu is enabled.
+  ;; The modes defined in `forge--corfu-disabled-modes' are excluded.
+  (setq global-corfu-modes `((not ,@forge--corfu-disabled-modes) t))
+
+  ;; Override the default `TAB' behaviour.
+  ;; This allows for literal tab insertion when not at indentation,
+  ;; and produces a superior (manual) completion experience.
+  (setq-default tab-always-indent nil)
 
   ;; Enable `global-corfu-mode' after initialization.
   (add-hook 'after-init-hook #'global-corfu-mode))
