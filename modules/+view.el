@@ -41,6 +41,9 @@
   ;; Prevent the cursor from blinking.
   (setq blink-cursor-mode nil)
 
+  ;; Surpress the default save messages.
+  (setq save-silently t)
+
   ;; Load the `hades' theme after startup.
   (add-hook 'emacs-startup-hook (lambda () (load-theme 'hades t))))
 

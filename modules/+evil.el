@@ -33,6 +33,14 @@ This prevents extra lines at EOB when the point is within that distance."
 This keeps the indentation operators (>> and <<) aligned across major modes."
     (unless (derived-mode-p 'org-mode)
       (setq-local evil-shift-width tab-width)))
+
+  (defun forge--evil-display-save-message ()
+    "Display save confirmation with file statistics.
+This shows the file name, line count, and character count after saving."
+    (message "%s %dL %dC written"
+             (or (file-relative-name buffer-file-name) (buffer-name))
+             (count-lines (point-min) (point-max))
+             (buffer-size)))
   :init
   ;; Prefer `undo-fu' as the default undo-backend.
   (setq evil-undo-system 'undo-fu)
@@ -47,6 +55,9 @@ This keeps the indentation operators (>> and <<) aligned across major modes."
 
   ;; Keep `evil-shift-width' consistent with `tab-width'.
   (add-hook 'after-change-major-mode-hook #'forge--evil-adjust-shift-width)
+
+  ;; Display `forge--evil-display-save-message' after saving.
+  (add-hook 'after-save-hook #'forge--evil-display-save-message)
 
   ;; Enable `evil-mode' after initialization.
   (add-hook 'after-init-hook #'evil-mode))
