@@ -19,7 +19,7 @@
 
 (use-package evil
   :preface
-  (defun forge--adjust-scroll-margin ()
+  (defun forge--evil-adjust-scroll-margin ()
     "Adjust the `scroll-margin' near end-of-buffer.
 This prevents extra lines at EOB when the point is within that distance."
     (unless (or (minibufferp) (window-minibuffer-p))
@@ -28,7 +28,7 @@ This prevents extra lines at EOB when the point is within that distance."
         (unless (eq scroll-margin new)
           (setq-local scroll-margin new)))))
 
-  (defun forge--adjust-shift-width ()
+  (defun forge--evil-adjust-shift-width ()
     "Adjust `evil-shift-width' to mirror `tab-width'.
 This keeps the indentation operators (>> and <<) aligned across major modes."
     (unless (derived-mode-p 'org-mode)
@@ -43,10 +43,10 @@ This keeps the indentation operators (>> and <<) aligned across major modes."
   (setq evil-visual-state-cursor 'box)
   :config
   ;; Adjust `scroll-margin' near end-of-buffer.
-  (add-hook 'post-command-hook #'forge--adjust-scroll-margin)
+  (add-hook 'post-command-hook #'forge--evil-adjust-scroll-margin)
 
   ;; Keep `evil-shift-width' consistent with `tab-width'.
-  (add-hook 'after-change-major-mode-hook #'forge--adjust-shift-width)
+  (add-hook 'after-change-major-mode-hook #'forge--evil-adjust-shift-width)
 
   ;; Enable `evil-mode' after initialization.
   (add-hook 'after-init-hook #'evil-mode))
