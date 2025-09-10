@@ -59,7 +59,7 @@
 
   ;; Allow for recursive minibuffers during input.
   ;; This is needed by advanced commands and completion UIs.
-  (setq enable-recursive-minibuffer))
+  (setq enable-recursive-minibuffer t))
 
 (use-package display-line-numbers
   :unless noninteractive
