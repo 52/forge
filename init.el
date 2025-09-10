@@ -18,7 +18,7 @@
 ;;; Code:
 
 (defconst forge-modules
-  '(+editor +view +evil)
+  '(+editor +view +complete +evil)
   "List of modules to load at startup.")
 
 (when (not forge--nix)

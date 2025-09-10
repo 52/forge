@@ -61,6 +61,8 @@
           smartparens
           xclip
 
+          corfu
+
           evil
         ];
 

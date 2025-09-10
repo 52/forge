@@ -49,9 +49,6 @@
   ;; Set the visual width of a literal TAB character.
   (setq-default tab-width 2)
 
-  ;; Indent with TAB first then fall back to `completion-at-point'.
-  (setq-default tab-always-indent 'complete)
-
   ;; Prefer spaces over hard TAB characters for indentation.
   ;; Use spaces by default in all buffers to keep diffs stable.
   (setq-default indent-tabs-mode nil)
