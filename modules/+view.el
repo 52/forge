@@ -41,7 +41,7 @@
   ;; Prevent the cursor from blinking.
   (setq blink-cursor-mode nil)
 
-  ;; Surpress the default save messages.
+  ;; Suppress the default save messages.
   (setq save-silently t)
 
   ;; Load the `hades' theme after startup.
@@ -114,7 +114,7 @@
   ;; Highlight the matching pair when point is near.
   (setq show-paren-when-point-in-periphery t)
 
-  ;; Prevent parantheses from blinking.
+  ;; Prevent parentheses from blinking.
   (setq blink-matching-paren nil)
 
   ;; Enable `show-paren-mode' after initialization.
@@ -127,7 +127,7 @@
   ;; See: https://github.com/fuco1/smartparens/blob/master/smartparens-config.el
   (require 'smartparens-config)
 
-  ;; Disables `smartparens' overlays.
+  ;; Disable `smartparens' overlays.
   ;; This is already handled by `show-parens'.
   (setq sp-highlight-pair-overlay nil)
   (setq sp-highlight-wrap-overlay nil)

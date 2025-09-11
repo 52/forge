@@ -63,7 +63,7 @@
     :init-value nil
     :global t)
   :config
-  ;; Increase the default limit (256kB).
+  ;; Increase the default limit (256KB).
   (setq undo-limit 256000)
 
   ;; Increase the strong limit (2MB).

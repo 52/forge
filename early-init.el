@@ -111,13 +111,12 @@ For now this maintains the default but can be adjusted if needed.")
   ;; Ask the user before terminating compilations on exit.
   (setq native-comp-async-query-on-exit t)
 
-  ;; Suppress compiler warnings and annoying popups.
-  ;; These settings will be enabled when `DEBUG=1'.
+  ;; Display native-compilation warnings only when `DEBUG=1'.
   (setq native-comp-async-report-warnings-errors forge--debug)
   (setq native-comp-warning-on-missing-source forge--debug))
 
 ;; Reduce the `pgtk-wait-for-event-timeout' for PGTK builds.
-;; This improves responsiveness of childframes and packages.
+;; This improves responsiveness of child frames and packages.
 (when (boundp 'pgtk-wait-for-event-timeout)
   (setq pgtk-wait-for-event-timeout 0.001))
 
@@ -130,7 +129,7 @@ For now this maintains the default but can be adjusted if needed.")
   ;; Prevent GNU Emacs from resizing itself in steps.
   (setq frame-resize-pixelwise t)
 
-  ;; Prevent GNU Emacs from resizing itself to a specific column size.
+  ;; Prevent GNU Emacs from implicit frame resizing.
   (setq frame-inhibit-implied-resize t)
 
   ;; Prevent GNU Emacs from resizing pixelwise.

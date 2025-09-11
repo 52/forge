@@ -33,7 +33,7 @@
 
   (unless (package-installed-p 'use-package)
     ;; Refresh only when the archive cache is empty.
-    (unless (seq-empty-p package-archive-contents)
+    (when (not package-archive-contents)
       (package-refresh-contents))
 
     ;; Ensure that `use-package` is installed.

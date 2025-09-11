@@ -33,7 +33,8 @@
   ;; Set the maximum width of the popup.
   (setq corfu-max-width 120)
 
-  ;; Preselect the prompt rather than the candidate.
+  ;; Do not pre-select any candidate initially.
+  ;; This keeps the original input active instead of a candidate.
   (setq corfu-preselect 'prompt)
 
   ;; Keep the minibuffer free of Corfu.
