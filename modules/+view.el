@@ -47,6 +47,12 @@
   ;; Load the `hades' theme after startup.
   (add-hook 'emacs-startup-hook (lambda () (load-theme 'hades t))))
 
+(use-package fringe
+  :unless noninteractive
+  :config
+  ;; Enable `fringe-mode' after initialization.
+  (add-hook 'emacs-init-hook (lambda () (fringe-mode '(8 . 0)))))
+
 (use-package minibuffer
   :unless noninteractive
   :config
