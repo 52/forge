@@ -105,6 +105,25 @@
   ;; This allows literal spaces to be escaped in matching patterns.
   (setq orderless-component-separator #'orderless-escapable-split-on-space))
 
+(use-package consult
+  :unless noninteractive
+  :config
+  ;; Reduce the minimum required input length.
+  ;; This allows for requests to trigger with shorter queries.
+  (setq consult-async-min-input 2)
+
+  ;; Reduce the delay before polling for results.
+  ;; This makes async commands update more frequently.
+  (setq consult-async-refresh-delay 0.15)
+
+  ;; Reduce the asynchronous input throttle delay.
+  ;; This allows for requests to dispatch more frequently.
+  (setq consult-async-input-throttle 0.2)
+
+  ;; Reduce the asynchronous input throttle debounce.
+  ;; This triggers new results sooner after typing pauses.
+  (setq consult-async-input-debounce 0.1))
+
 (provide '+complete)
 
 ;;; +complete.el ends here

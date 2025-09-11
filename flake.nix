@@ -63,6 +63,7 @@
           marginalia
           orderless
           vertico
+          consult
           corfu
 
           evil
