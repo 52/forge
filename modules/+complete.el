@@ -44,11 +44,6 @@
   ;; The modes defined in `forge--corfu-disabled-modes' are excluded.
   (setq global-corfu-modes `((not ,@forge--corfu-disabled-modes) t))
 
-  ;; Override the default `TAB' behaviour.
-  ;; This allows for literal tab insertion when not at indentation,
-  ;; and produces a superior (manual) completion experience.
-  (setq-default tab-always-indent nil)
-
   ;; Kill Corfu when exiting `evil' insert state.
   ;; This prevents any popups from lingering in normal mode.
   (add-hook 'evil-insert-state-exit-hook #'corfu-quit)
