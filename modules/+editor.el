@@ -89,8 +89,13 @@
 
 (use-package bookmark
   :config
-  ;; Write bookmarks to "`forge-cache-directory'/bookmark".
-  (setq bookmark-default-file (concat-path forge-cache-directory "bookmark")))
+  ;; Write bookmarks to "`forge-cache-directory'/bookmarks".
+  (setq bookmark-default-file (concat-path forge-cache-directory "bookmarks")))
+
+(use-package project
+  :config
+  ;; Write project list to "`forge-cache-directory'/projects".
+  (setq project-list-file (concat-path forge-cache-directory "projects")))
 
 (use-package autorevert
   :config
