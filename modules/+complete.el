@@ -67,6 +67,16 @@
   ;; Hide commands in `M-x' which do not apply to the current mode.
   (setq read-extended-command-predicate #'command-completion-default-include-p)
 
+  ;; Bind `M-n' and `M-p' for cycling through candidates.
+  ;; This overrides the default minibuffer history navigation.
+  (define-key vertico-map (kbd "M-n") #'vertico-next)
+  (define-key vertico-map (kbd "M-p") #'vertico-previous)
+
+  ;; Bind `C-n' and `C-p' for cycling through the input history.
+  ;; This restores the default minibuffer history navigation.
+  (define-key vertico-map (kbd "C-n") #'next-history-element)
+  (define-key vertico-map (kbd "C-p") #'previous-history-element)
+
   ;; Enable `vertico-mode' after initialization.
   (add-hook 'after-init-hook #'vertico-mode))
 
