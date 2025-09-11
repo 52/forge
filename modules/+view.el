@@ -62,7 +62,12 @@
 
   ;; Allow for recursive minibuffers during input.
   ;; This is needed by advanced commands and completion UIs.
-  (setq enable-recursive-minibuffer t))
+  (setq enable-recursive-minibuffer t)
+
+  ;; Prevent the cursor from entering the minibuffer prompt.
+  ;; This makes the prompt text non-editable and immutable.
+  (plist-put minibuffer-prompt-properties 'cursor-intangible t)
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
 
 (use-package display-line-numbers
   :unless noninteractive
