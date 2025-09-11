@@ -84,7 +84,6 @@
   :config
   ;; Prefer relative line-numbers for overall navigation.
   ;; However keep the current line absolute (vim-like).
-  (setq-default display-line-numbers 'relative)
   (setq-default display-line-numbers-type 'relative)
   (setq-default display-line-numbers-current-absolute t)
 
