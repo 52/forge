@@ -63,6 +63,9 @@
   ;; Prevent the Vertico UI from resizing dynamically.
   (setq vertico-resize nil)
 
+  ;; Hide commands in `M-x' which do not apply to the current mode.
+  (setq read-extended-command-predicate #'command-completion-default-include-p)
+
   ;; Enable `vertico-mode' after initialization.
   (add-hook 'after-init-hook #'vertico-mode))
 
