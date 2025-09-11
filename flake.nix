@@ -61,6 +61,7 @@
           smartparens
           xclip
 
+          marginalia
           vertico
           corfu
 

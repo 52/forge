@@ -66,6 +66,12 @@
   ;; Enable `vertico-mode' after initialization.
   (add-hook 'after-init-hook #'vertico-mode))
 
+(use-package marginalia
+  :unless noninteractive
+  :config
+  ;; Enable `marginalia-mode' after initialization.
+  (add-hook 'after-init-hook #'marginalia-mode))
+
 (provide '+complete)
 
 ;;; +complete.el ends here
