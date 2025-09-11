@@ -94,7 +94,7 @@
   (setq completion-styles '(orderless basic))
 
   ;; Reset the default completion category settings.
-  ;; This removes builtin per-category defaults that might conflict.
+  ;; This removes built-in per-category defaults that might conflict.
   (setq completion-category-defaults nil)
 
   ;; Enable hybrid completion styles specifically for files.
@@ -122,7 +122,18 @@
 
   ;; Reduce the asynchronous input throttle debounce.
   ;; This triggers new results sooner after typing pauses.
-  (setq consult-async-input-debounce 0.1))
+  (setq consult-async-input-debounce 0.1)
+  
+  ;; Remap built-in commands with their `consult' equivalent.
+  ;; These remappings generally provide a superior editing experience.
+  (define-key global-map [remap switch-to-buffer-other-window] #'consult-buffer-other-window)
+  (define-key global-map [remap switch-to-buffer-other-frame] #'consult-buffer-other-frame)
+  (define-key global-map [remap switch-to-buffer-other-tab] #'consult-buffer-other-tab)
+  (define-key global-map [remap switch-to-buffer] #'consult-buffer)
+  (define-key global-map [remap recentf-open-files] #'consult-recent-file)
+  (define-key global-map [remap bookmark-jump] #'consult-bookmark)
+  (define-key global-map [remap goto-line] #'consult-goto-line)
+  (define-key global-map [remap locate] #'consult-locate))
 
 (provide '+complete)
 
