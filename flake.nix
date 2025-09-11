@@ -61,6 +61,7 @@
           smartparens
           xclip
 
+          vertico
           corfu
 
           evil

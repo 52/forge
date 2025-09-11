@@ -56,6 +56,21 @@
   ;; Enable `global-corfu-mode' after initialization.
   (add-hook 'after-init-hook #'global-corfu-mode))
 
+(use-package vertico
+  :unless noninteractive
+  :config
+  ;; Enable cycling through completion candidates.
+  (setq vertico-cycle t)
+
+  ;; Set the maximum number of candidates shown.
+  (setq vertico-count 10)
+
+  ;; Prevent the Vertico UI from resizing dynamically.
+  (setq vertico-resize nil)
+
+  ;; Enable `vertico-mode' after initialization.
+  (add-hook 'after-init-hook #'vertico-mode))
+
 (provide '+complete)
 
 ;;; +complete.el ends here
