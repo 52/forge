@@ -57,11 +57,11 @@
         packages = with epkgs.unstable; [
           undo-fu-session
           undo-fu
-
           smartparens
           xclip
 
           marginalia
+          orderless
           vertico
           corfu
 

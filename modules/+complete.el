@@ -75,6 +75,25 @@
   ;; Enable `marginalia-mode' after initialization.
   (add-hook 'after-init-hook #'marginalia-mode))
 
+(use-package orderless
+  :unless noninteractive
+  :config
+  ;; Set the default completion styles with `orderless' first.
+  ;; This matches space-separated components and falls back to `basic'.
+  (setq completion-styles '(orderless basic))
+
+  ;; Reset the default completion category settings.
+  ;; This removes builtin per-category defaults that might conflict.
+  (setq completion-category-defaults nil)
+
+  ;; Enable hybrid completion styles specifically for files.
+  ;; This combines `orderless' matching with `partial-completion'.
+  (setq completion-category-overrides '((file (styles orderless partial-completion))))
+
+  ;; Enable space-separated component splitting with escapes.
+  ;; This allows literal spaces to be escaped in matching patterns.
+  (setq orderless-component-separator #'orderless-escapable-split-on-space))
+
 (provide '+complete)
 
 ;;; +complete.el ends here
