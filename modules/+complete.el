@@ -30,8 +30,11 @@
   ;; Set the maximum number of candidates shown.
   (setq corfu-count 12)
 
+  ;; Set the minimum width of the popup.
+  (setq corfu-min-width 30)
+
   ;; Set the maximum width of the popup.
-  (setq corfu-max-width 120)
+  (setq corfu-max-width 60)
 
   ;; Do not pre-select any candidate initially.
   ;; This keeps the original input active instead of a candidate.
