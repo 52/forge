@@ -66,6 +66,8 @@
           consult
           corfu
 
+          vterm
+
           evil
         ];
 
