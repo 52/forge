@@ -129,6 +129,7 @@
   (define-key global-map [remap switch-to-buffer-other-window] #'consult-buffer-other-window)
   (define-key global-map [remap switch-to-buffer-other-frame] #'consult-buffer-other-frame)
   (define-key global-map [remap switch-to-buffer-other-tab] #'consult-buffer-other-tab)
+  (define-key global-map [remap project-switch-to-buffer] #'consult-project-buffer)
   (define-key global-map [remap switch-to-buffer] #'consult-buffer)
   (define-key global-map [remap recentf-open-files] #'consult-recent-file)
   (define-key global-map [remap bookmark-jump] #'consult-bookmark)
