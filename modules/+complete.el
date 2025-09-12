@@ -133,11 +133,15 @@
   (define-key global-map [remap switch-to-buffer-other-frame] #'consult-buffer-other-frame)
   (define-key global-map [remap switch-to-buffer-other-tab] #'consult-buffer-other-tab)
   (define-key global-map [remap project-switch-to-buffer] #'consult-project-buffer)
-  (define-key global-map [remap switch-to-buffer] #'consult-buffer)
   (define-key global-map [remap recentf-open-files] #'consult-recent-file)
+  (define-key global-map [remap switch-to-buffer] #'consult-buffer)
   (define-key global-map [remap bookmark-jump] #'consult-bookmark)
   (define-key global-map [remap goto-line] #'consult-goto-line)
-  (define-key global-map [remap locate] #'consult-locate))
+
+  ;; Additional bindings for `consult' commands.
+  (define-key global-map (kbd "M-s r") #'consult-ripgrep)
+  (define-key global-map (kbd "M-s f") #'consult-find)
+  (define-key global-map (kbd "M-s l") #'consult-line))
 
 (provide '+complete)
 
