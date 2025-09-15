@@ -26,7 +26,7 @@
     ;;
     ;; Language-specific modules.
     ;; These define programming language support and developer tools.
-    ;; See: <todo: link here>
+    ;; See: https://github.com/52/forge/tree/master/langs
     ;; (@rust @typescript)
     )
   "List of modules to load during initialization.

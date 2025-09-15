@@ -95,6 +95,9 @@ For now this maintains the default but can be adjusted if needed.")
 ;; Prepend the `core' folder to the `load-path'.
 (add-to-list 'load-path (concat-path user-emacs-directory "core"))
 
+;; Prepend the `langs' folder to the `load-path'.
+(add-to-list 'load-path (concat-path user-emacs-directory "langs"))
+
 (when forge--debug
   ;; Enable verbose debug prints.
   (setq init-file-debug t)
