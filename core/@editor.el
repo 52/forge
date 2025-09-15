@@ -174,6 +174,29 @@
   ;; This prevents accumulation of unnecessary buffers.
   (setq dired-kill-when-opening-new-dired-buffer t))
 
+(use-package compile
+  :config
+  ;; Clear the default command to require explicit input.
+  ;; This overwrites the generic default `make -k' command.
+  (setq compile-command "")
+
+  ;; Only stop at errors when jumping through the output.
+  (setq compilation-skip-threshold 2)
+
+  ;; Automatically follow incoming output lines.
+  (setq compilation-scroll-output t)
+
+  ;; Display context around compilation errors.
+  (setq compilation-context-lines 3)
+
+  ;; Set compilation buffers to be strictly read-only.
+  ;; This prevents any accidental typing in the output buffer.
+  (setq compilation-disable-input t)
+
+  ;; Support ANSI color codes in the compilation output.
+  ;; This preserves colored output from any modern tools.
+  (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter))
+
 (provide '@editor)
 
 ;;; @editor.el ends here

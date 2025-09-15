@@ -55,21 +55,17 @@
         ##
         #@ [Package]
         packages = with epkgs.unstable; [
-          undo-fu-session
           undo-fu
+          undo-fu-session
           smartparens
-          xclip
-
-          marginalia
-          orderless
           vertico
+          orderless
+          marginalia
           consult
           corfu
-
           treesit-auto
-
           vterm
-
+          xclip
           evil
         ];
 
