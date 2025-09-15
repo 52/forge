@@ -174,13 +174,6 @@
   ;; This prevents accumulation of unnecessary buffers.
   (setq dired-kill-when-opening-new-dired-buffer t))
 
-(use-package xclip
-  :unless (display-graphic-p)
-  :config
-  ;; Enable `xclip-mode' in TTY sessions.
-  ;; This allows yanking to system clipboard and pasting from it.
-  (add-hook 'tty-setup-hook #'xclip-mode))
-
 (provide '@editor)
 
 ;;; @editor.el ends here
