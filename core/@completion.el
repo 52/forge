@@ -62,7 +62,7 @@
   (setq vertico-cycle t)
 
   ;; Set the maximum number of candidates shown.
-  (setq vertico-count 10)
+  (setq vertico-count 12)
 
   ;; Prevent the Vertico UI from resizing dynamically.
   (setq vertico-resize nil)
