@@ -87,16 +87,6 @@
   ;; Enable `undo-fu-session' when `undo-fu-mode' is active.
   (add-hook 'undo-fu-mode-hook #'undo-fu-session-global-mode))
 
-(use-package bookmark
-  :config
-  ;; Write bookmarks to "`forge-cache-directory'/bookmarks".
-  (setq bookmark-default-file (concat-path forge-cache-directory "bookmarks")))
-
-(use-package project
-  :config
-  ;; Write project list to "`forge-cache-directory'/projects".
-  (setq project-list-file (concat-path forge-cache-directory "projects")))
-
 (use-package autorevert
   :config
   ;; Enable verbose logging when reverting buffers.
@@ -152,6 +142,38 @@
 
   ;; Enable `save-place-mode' after initialization.
   (add-hook 'after-init-hook #'save-place-mode))
+
+(use-package bookmark
+  :config
+  ;; Write bookmarks to "`forge-cache-directory'/bookmarks".
+  (setq bookmark-default-file (concat-path forge-cache-directory "bookmarks")))
+
+(use-package project
+  :config
+  ;; Write project list to "`forge-cache-directory'/projects".
+  (setq project-list-file (concat-path forge-cache-directory "projects")))
+
+(use-package dired
+  :unless noninteractive
+  :config
+  ;; Always ask when creating target directories.
+  (setq dired-create-destination-dirs 'ask)
+
+  ;; Always copy directories recursively without prompt.
+  (setq dired-recursive-copies 'always)
+
+  ;; Always delete directories recursively without prompt.
+  (setq dired-recursive-deletes 'always)
+
+  ;; Remove the free space display from `dired' headers.
+  (setq dired-free-space nil)
+
+  ;; Revert buffers when the directory changes.
+  (setq dired-auto-revert-buffer 'dired-buffer-stale-p)
+  
+  ;; Kill the current `dired' buffer when opening another.
+  ;; This prevents accumulation of unnecessary buffers.
+  (setq dired-kill-when-opening-new-dired-buffer t))
 
 (use-package xclip
   :unless (display-graphic-p)
