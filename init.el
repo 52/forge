@@ -17,6 +17,21 @@
 ;;
 ;;; Code:
 
+(defconst forge-modules
+  '(;;
+    ;; Core/Foundation modules.
+    ;; These define the base editing environment and interface.
+    ;; See: https://github.com/52/forge/tree/master/core
+    (@editor @ui @completion @dired @tty @treesit @evil)
+    ;;
+    ;; Language-specific modules.
+    ;; These define programming language support and developer tools.
+    ;; See: <todo: link here>
+    ;; (@rust @typescript)
+    )
+  "List of modules to load during initialization.
+Each symbol corresponds to a file (`*.el') with the same name.")
+
 (when (not forge--nix)
   ;; Initialize and refresh `package.el' on non-Nix systems.
   ;; Since we disabled the automatic package initialization,
@@ -37,12 +52,9 @@
 
   (require 'use-package))
 
-(require '@editor)
-(require '@ui)
-(require '@completion)
-(require '@dired)
-(require '@tty)
-(require '@treesit)
-(require '@evil)
+;; Load the modules declared in `forge-modules'.
+;; Flattens any nested groups - then `require' each feature.
+;; Each module file *must* contain a matching `provide' statement.
+(mapc #'require (apply #'append forge-modules))
 
 ;;; init.el ends here
