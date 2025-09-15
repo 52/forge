@@ -1,4 +1,4 @@
-;;; +term.el -*- lexical-binding: t; -*-
+;;; @tty.el -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -29,6 +29,6 @@
   ;; This provides *way* more responsive output at higher CPU cost.
   (setq vterm-timer-delay 0.01))
 
-(provide '+term)
+(provide '@tty)
 
-;;; +term.el ends here
+;;; @tty.el ends here

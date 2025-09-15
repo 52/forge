@@ -1,4 +1,4 @@
-;;; +dired.el -*- lexical-binding: t; -*-
+;;; @dired.el -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -39,6 +39,6 @@
   ;; This prevents accumulation of unnecessary buffers.
   (setq dired-kill-when-opening-new-dired-buffer t))
 
-(provide '+dired)
+(provide '@dired)
 
-;;; +dired.el ends here
+;;; @dired.el ends here

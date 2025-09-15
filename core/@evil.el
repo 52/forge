@@ -1,4 +1,4 @@
-;;; +evil.el -*- lexical-binding: t; -*-
+;;; @evil.el -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -62,6 +62,6 @@ This shows the file name, line count, and character count after saving."
   ;; Enable `evil-mode' after initialization.
   (add-hook 'after-init-hook #'evil-mode))
 
-(provide '+evil)
+(provide '@evil)
 
-;;; +evil.el ends here
+;;; @evil.el ends here

@@ -1,4 +1,4 @@
-;;; +editor.el -*- lexical-binding: t; -*-
+;;; @editor.el -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -160,6 +160,6 @@
   ;; This allows yanking to system clipboard and pasting from it.
   (add-hook 'tty-setup-hook #'xclip-mode))
 
-(provide '+editor)
+(provide '@editor)
 
-;;; +editor.el ends here
+;;; @editor.el ends here

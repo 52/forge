@@ -17,10 +17,6 @@
 ;;
 ;;; Code:
 
-(defconst forge-modules
-  '(+editor +view +complete +dired +term +treesit +evil)
-  "List of modules to load at startup.")
-
 (when (not forge--nix)
   ;; Initialize and refresh `package.el' on non-Nix systems.
   ;; Since we disabled the automatic package initialization,
@@ -41,8 +37,12 @@
 
   (require 'use-package))
 
-;; Require all `forge-modules' in sequence.
-;; Files must contain a matching `provide' statement for resolution.
-(mapc #'require forge-modules)
+(require '@editor)
+(require '@ui)
+(require '@completion)
+(require '@dired)
+(require '@tty)
+(require '@treesit)
+(require '@evil)
 
 ;;; init.el ends here

@@ -1,4 +1,4 @@
-;;; +treesit.el -*- lexical-binding: t; -*-
+;;; @treesit.el -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -51,6 +51,6 @@
   ;; Enable `global-treesit-auto-mode' after initialization.
   (add-hook 'after-init-hook #'global-treesit-auto-mode))
 
-(provide '+treesit)
+(provide '@treesit)
 
-;;; +treesit.el ends here
+;;; @treesit.el ends here

@@ -92,8 +92,8 @@ For now this maintains the default but can be adjusted if needed.")
 ;; Set the `custom-theme-directory' to our `themes' folder.
 (setq custom-theme-directory (concat-path user-emacs-directory "themes"))
 
-;; Prepend the `modules' folder to the `load-path'.
-(add-to-list 'load-path (concat-path user-emacs-directory "modules"))
+;; Prepend the `core' folder to the `load-path'.
+(add-to-list 'load-path (concat-path user-emacs-directory "core"))
 
 (when forge--debug
   ;; Enable verbose debug prints.

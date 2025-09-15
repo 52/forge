@@ -1,4 +1,4 @@
-;;; +complete.el -*- lexical-binding: t; -*-
+;;; @completion.el -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -143,6 +143,6 @@
   (define-key global-map (kbd "M-s f") #'consult-find)
   (define-key global-map (kbd "M-s l") #'consult-line))
 
-(provide '+complete)
+(provide '@completion)
 
-;;; +complete.el ends here
+;;; @completion.el ends here

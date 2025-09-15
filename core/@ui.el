@@ -1,4 +1,4 @@
-;;; +view.el -*- lexical-binding: t; -*-
+;;; @ui.el -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -150,6 +150,6 @@
   ;; Enable `smartparens-global-mode' after initialization.
   (add-hook 'after-init-hook #'smartparens-global-mode))
 
-(provide '+view)
+(provide '@ui)
 
-;;; +view.el ends here
+;;; @ui.el ends here
