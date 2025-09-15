@@ -66,17 +66,11 @@
           consult
           corfu
 
+          treesit-auto
+
           vterm
 
           evil
-        ];
-
-        ## List of grammars to install.
-        ## See: https://github.com/orgs/tree-sitter-grammars
-        ##
-        #@ [Package]
-        grammars = with epkgs.stable; [
-          treesit-grammars.with-all-grammars
         ];
 
         ## The GNU Emacs derivation.
@@ -86,7 +80,7 @@
           inherit name;
 
           paths = with epkgs.stable; [
-            (emacsWithPackages (_: packages ++ grammars))
+            (emacsWithPackages (_: packages))
           ];
 
           buildInputs = [
