@@ -154,7 +154,6 @@
   (setq project-list-file (concat-path forge-cache-directory "projects")))
 
 (use-package dired
-  :unless noninteractive
   :config
   ;; Always ask when creating target directories.
   (setq dired-create-destination-dirs 'ask)
