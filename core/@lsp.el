@@ -45,6 +45,12 @@ This conditionally adds an entry to `eglot-server-programs' when BIN is found."
     ;; Disable the `eglot-events-buffer' completely.
     (setq eglot-events-buffer-config '(:size 0 :format short))))
 
+(use-package flymake
+  :unless noninteractive
+  :config
+  ;; Disable any fringe or margin indicators.
+  (setq flymake-indicator-type nil))
+
 (provide '@lsp)
 
 ;;; @lsp.el ends here
