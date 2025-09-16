@@ -15,7 +15,12 @@
       flake-utils,
       ...
     }:
-    flake-utils.lib.eachDefaultSystem (
+    {
+      overlays.default = final: prev: {
+        forge = self.packages.${final.system}.default;
+      };
+    }
+    // flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = import nixpkgs {
@@ -110,16 +115,16 @@
         };
       in
       {
+        # Application entry point for "nix run".
+        # See: https://nix.dev/manual/nix/2.18/command-ref/new-cli/nix3-run
         apps.default = {
           type = "app";
           program = "${forge}/bin/emacs";
         };
 
+        # Package output for "nix build".
+        # See: https://nix.dev/manual/nix/2.18/command-ref/new-cli/nix3-build
         packages.default = forge;
-
-        overlays.default = _: prev: {
-          ${name} = forge;
-        };
 
         # Shell used by "nix develop".
         # See: https://nix.dev/manual/nix/2.18/command-ref/new-cli/nix3-develop
