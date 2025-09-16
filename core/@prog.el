@@ -49,7 +49,10 @@ This conditionally adds an entry to `eglot-server-programs' when BIN is found."
   :unless noninteractive
   :config
   ;; Disable any fringe or margin indicators.
-  (setq flymake-indicator-type nil))
+  (setq flymake-indicator-type nil)
+
+  ;; Enable `flymake-mode' when `eglot' is enabled.
+  (add-hook 'eglot-managed-mode-hook #'flymake-mode))
 
 (provide '@prog)
 
