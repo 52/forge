@@ -28,9 +28,10 @@
   ;; This prevents any freezes during the initialization.
   (setq eglot-sync-connect nil)
 
-  ;; Prevent LSP servers from displaying inlay hints.
-  ;; These just clutter the buffer with unnecessary annotations.
-  (setq eglot-ignored-server-capabilities '(:inlayHintProvider))
+  ;; Disable unnecessary LSP server capabilities.
+  ;; These features add noise without improving the editing experience.
+  (dolist (item '(:inlayHintProvider :documentHighlightProvider))
+    (add-to-list 'eglot-ignored-server-capabilities item))
 
   ;; Display progress only in debug mode.
   (setq eglot-report-progress forge--debug)
