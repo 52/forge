@@ -28,7 +28,11 @@
   ;; This prevents any freezes during the initialization.
   (setq eglot-sync-connect nil)
 
-  ;; Display LSP progress only in debug mode.
+  ;; Prevent LSP servers from displaying inlay hints.
+  ;; These just clutter the buffer with unnecessary annotations.
+  (setq eglot-ignored-server-capabilities '(:inlayHintProvider))
+
+  ;; Display progress only in debug mode.
   (setq eglot-report-progress forge--debug)
 
   (unless forge--debug
