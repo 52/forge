@@ -48,6 +48,7 @@
   :unless noninteractive
   :config
   ;; Disable any fringe or margin indicators.
+  (setq flymake-fringe-indicator-position nil)
   (setq flymake-indicator-type nil)
 
   ;; Enable `flymake-mode' in all programming modes.
