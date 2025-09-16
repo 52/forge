@@ -1,4 +1,4 @@
-;;; @completion.el --- -*- lexical-binding: t; -*-
+;;; @complete.el --- -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -117,6 +117,6 @@
   ;; This triggers new results sooner after typing pauses.
   (setq consult-async-input-debounce 0.1))
 
-(provide '@completion)
+(provide '@complete)
 
-;;; @completion.el ends here
+;;; @complete.el ends here
