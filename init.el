@@ -8,7 +8,7 @@
 ;; SPDX-License-Identifier: MIT OR Apache-2.0
 ;;
 ;; MIT License: http://opensource.org/licenses/MIT
-;; Apache Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
+;; Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0
 ;;
 ;; This project is dual-licensed under MIT License and Apache License 2.0.
 ;; You may use this file under either license at your discretion.
