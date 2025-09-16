@@ -72,10 +72,6 @@
   ;; Increase the outer limit (36MB).
   (setq undo-outer-limit 36000000)
 
-  ;; Remap `undo' and `redo' to `undo-fu' functions.
-  (global-set-key [remap undo] #'undo-fu-only-undo)
-  (global-set-key [remap redo] #'undo-fu-only-redo)
-
   ;; Enable `undo-fu-mode' after initialization.
   (add-hook 'after-init-hook #'undo-fu-mode))
 
