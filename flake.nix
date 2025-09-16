@@ -15,12 +15,7 @@
       flake-utils,
       ...
     }:
-    {
-      overlays.default = final: prev: {
-        forge = self.packages.${final.system}.default;
-      };
-    }
-    // flake-utils.lib.eachDefaultSystem (
+    flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = import nixpkgs {
@@ -144,5 +139,10 @@
             ++ [ forge ];
         };
       }
-    );
+    )
+    // {
+      overlays.default = final: prev: {
+        forge = self.packages.${final.system}.default;
+      };
+    };
 }
