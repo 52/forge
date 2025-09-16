@@ -28,10 +28,14 @@
   ;; This prevents any freezes during the initialization.
   (setq eglot-sync-connect nil)
 
-  ;; Disable unnecessary LSP server capabilities.
+  ;; Ignore unnecessary LSP server capabilities.
   ;; These features add noise without improving the editing experience.
   (dolist (item '(:inlayHintProvider :documentHighlightProvider))
     (add-to-list 'eglot-ignored-server-capabilities item))
+
+  ;; Don't interfere with certain features.
+  (dolist (feature '(flymake))
+    (add-to-list 'eglot-stay-out-of feature))
 
   ;; Display progress only in debug mode.
   (setq eglot-report-progress forge--debug)
@@ -43,6 +47,19 @@
 
     ;; Disable the `eglot-events-buffer' completely.
     (setq eglot-events-buffer-config '(:size 0 :format short))))
+
+(use-package eldoc
+  :unless noninteractive
+  :config
+  ;; Reduce the delay before displaying documentation.
+  (setq eldoc-idle-delay 0.1)
+
+  ;; Don't allow ElDoc strings to resize the echo area.
+  ;; This prevents the minibuffer from constantly resizing.
+  (setq eldoc-echo-area-use-multiline-p nil)
+
+  ;; Prefer the documentation buffer when visible.
+  (setq eldoc-echo-area-prefer-doc-buffer t))
 
 (use-package flymake
   :unless noninteractive
