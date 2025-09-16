@@ -53,6 +53,8 @@
   ;; Enable `flymake-mode' in all programming modes.
   (add-hook 'prog-mode-hook #'flymake-mode))
 
+(use-package consult-flymake :unless noninteractive)
+
 (provide '@prog)
 
 ;;; @prog.el ends here

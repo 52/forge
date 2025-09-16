@@ -38,10 +38,15 @@
 (define-key global-map [remap bookmark-jump] #'consult-bookmark)
 (define-key global-map [remap goto-line] #'consult-goto-line)
 
-;; Additional bindings for `consult' commands.
-(define-key global-map (kbd "M-s r") #'consult-ripgrep)
-(define-key global-map (kbd "M-s f") #'consult-find)
+;; Buffer-local search and navigation commands.
+;; These operate within the current buffer context.
 (define-key global-map (kbd "M-s l") #'consult-line)
+(define-key global-map (kbd "M-s e") #'consult-flymake)
+
+;; Project-wide and directory search commands.
+;; These operate across multiple files and directories.
+(define-key global-map (kbd "M-s f") #'consult-find)
+(define-key global-map (kbd "M-s r") #'consult-ripgrep)
 
 (provide '@keymap)
 
