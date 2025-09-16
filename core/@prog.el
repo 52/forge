@@ -19,12 +19,6 @@
 
 (use-package eglot
   :unless noninteractive
-  :preface
-  (defmacro lsp! (mode bin &rest args)
-    "Register an LSP server for MODE using the BIN executable.
-This conditionally adds an entry to `eglot-server-programs' when BIN is found."
-    `(when (executable-find ,bin)
-       (add-to-list 'eglot-server-programs '(,mode ,bin ,@args))))
   :config
   ;; Automatically shutdown when all buffers are killed.
   ;; This prevents any orphaned processes from draining resources.

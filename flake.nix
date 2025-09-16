@@ -67,6 +67,7 @@
           vterm
           xclip
           evil
+          nix-ts-mode
         ];
 
         ## The GNU Emacs derivation.

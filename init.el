@@ -22,12 +22,12 @@
     ;; Core/Foundation modules.
     ;; These define the base editing environment and interface.
     ;; See: https://github.com/52/forge/tree/master/core
-    (@editor @ui @completion @tty @treesit @prog @evil)
+    (@editor @ui @completion @tty @treesit @prog @evil @macro)
     ;;
     ;; Language-specific modules.
     ;; These define programming language support and developer tools.
     ;; See: https://github.com/52/forge/tree/master/langs
-    ;; (@rust @typescript)
+    (@nix)
     )
   "List of modules to load during initialization.
 Each symbol corresponds to a file (`*.el') with the same name.")
