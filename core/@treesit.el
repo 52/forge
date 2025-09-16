@@ -22,7 +22,7 @@
   :preface
   (defvar forge--treesit-grammar-directory
     (concat-path forge-cache-directory "tree-sitter")
-    "Directory where Tree-sitter files are stored in.")
+    "Directory where Tree-sitter files are stored.")
   :config
   ;; This temporarily overrides `user-emacs-directory' to point to
   ;; `forge-cache-directory' so the `treesit' internals write the 

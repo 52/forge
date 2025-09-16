@@ -138,7 +138,7 @@
   (require 'smartparens-config)
 
   ;; Disable `smartparens' overlays.
-  ;; This is already handled by `show-parens'.
+  ;; This is already handled by `show-paren-mode'.
   (setq sp-highlight-pair-overlay nil)
   (setq sp-highlight-wrap-overlay nil)
   (setq sp-highlight-wrap-tag-overlay nil)
