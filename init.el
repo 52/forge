@@ -22,7 +22,7 @@
     ;; Core/Foundation modules.
     ;; These define the base editing environment and interface.
     ;; See: https://github.com/52/forge/tree/master/core
-    (@editor @ui @completion @tty @treesit @lsp @evil)
+    (@editor @ui @completion @tty @treesit @prog @evil)
     ;;
     ;; Language-specific modules.
     ;; These define programming language support and developer tools.

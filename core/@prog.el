@@ -1,4 +1,4 @@
-;;; @lsp.el -*- lexical-binding: t; -*-
+;;; @prog.el -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -51,6 +51,6 @@ This conditionally adds an entry to `eglot-server-programs' when BIN is found."
   ;; Disable any fringe or margin indicators.
   (setq flymake-indicator-type nil))
 
-(provide '@lsp)
+(provide '@prog)
 
-;;; @lsp.el ends here
+;;; @prog.el ends here
