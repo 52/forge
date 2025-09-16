@@ -19,7 +19,7 @@
 
 (defmacro define-lsp! (mode bin &rest args)
   "Associate LSP server BIN for MODE with optional ARGS.
-Adds an entry to `eglot-server-programs' and installs `eglot-ensure'"
+Adds an entry to `eglot-server-programs' and installs `eglot-ensure'."
   `(with-eval-after-load 'eglot
      ;; Only continue if the LSP binary exists.
      (when (executable-find ,bin)
