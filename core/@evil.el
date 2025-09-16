@@ -1,4 +1,4 @@
-;;; @evil.el -*- lexical-binding: t; -*-
+;;; @evil.el --- -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;

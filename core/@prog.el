@@ -1,4 +1,4 @@
-;;; @prog.el -*- lexical-binding: t; -*-
+;;; @prog.el --- -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -50,8 +50,8 @@
   ;; Disable any fringe or margin indicators.
   (setq flymake-indicator-type nil)
 
-  ;; Enable `flymake-mode' when `eglot' is enabled.
-  (add-hook 'eglot-managed-mode-hook #'flymake-mode))
+  ;; Enable `flymake-mode' in all programming modes.
+  (add-hook 'prog-mode-hook #'flymake-mode))
 
 (provide '@prog)
 

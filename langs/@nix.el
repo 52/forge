@@ -1,4 +1,4 @@
-;;; @nix.el -*- lexical-binding: t; -*-
+;;; @nix.el --- -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;

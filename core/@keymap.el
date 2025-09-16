@@ -1,4 +1,4 @@
-;;; @keymap.el -*- lexical-binding: t; -*-
+;;; @keymap.el --- -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;

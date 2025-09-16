@@ -1,4 +1,4 @@
-;;; @ui.el -*- lexical-binding: t; -*-
+;;; @ui.el --- -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;

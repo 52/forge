@@ -1,4 +1,4 @@
-;;; @tty.el -*- lexical-binding: t; -*-
+;;; @tty.el --- -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;

@@ -1,4 +1,4 @@
-;;; @completion.el -*- lexical-binding: t; -*-
+;;; @completion.el --- -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -115,7 +115,7 @@
 
   ;; Reduce the asynchronous input throttle debounce.
   ;; This triggers new results sooner after typing pauses.
-  (setq consult-async-input-debounce 0.1))  
+  (setq consult-async-input-debounce 0.1))
 
 (provide '@completion)
 

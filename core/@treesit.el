@@ -1,4 +1,4 @@
-;;; @treesit.el -*- lexical-binding: t; -*-
+;;; @treesit.el --- -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
@@ -25,7 +25,7 @@
     "Directory where Tree-sitter files are stored.")
   :config
   ;; This temporarily overrides `user-emacs-directory' to point to
-  ;; `forge-cache-directory' so the `treesit' internals write the 
+  ;; `forge-cache-directory' so the `treesit' internals write the
   ;; compiled `*.so' files to our cache instead.
   (let ((overwrite-directory-fn (lambda (orig-fn &rest args)
               (let ((user-emacs-directory forge-cache-directory))

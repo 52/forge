@@ -1,4 +1,4 @@
-;;; @macro.el -*- lexical-binding: t; -*-
+;;; @macro.el --- -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2025 Max Karou
 ;;
