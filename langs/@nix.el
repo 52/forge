@@ -20,8 +20,8 @@
 (use-package nix-ts-mode
   :unless noninteractive
   :config
-  (define-auto-mode! nix-ts-mode "\\.nix\\'")
-  (define-lsp! nix-ts-mode "nixd"))
+  (def-auto-mode! nix-ts-mode "\\.nix\\'")
+  (def-lsp! nix-ts-mode "nixd"))
 
 (provide '@nix)
 

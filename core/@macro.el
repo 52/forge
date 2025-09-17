@@ -17,7 +17,7 @@
 ;;
 ;;; Code:
 
-(defmacro define-lsp! (mode bin &rest args)
+(defmacro def-lsp! (mode bin &rest args)
   "Associate LSP server BIN for MODE with optional ARGS.
 Adds an entry to `eglot-server-programs' and installs `eglot-ensure'."
   `(with-eval-after-load 'eglot
@@ -35,7 +35,7 @@ Adds an entry to `eglot-server-programs' and installs `eglot-ensure'."
          ;; Add `eglot-ensure' to automatically start LSP.
          (add-hook hook-sym #'eglot-ensure)))))
 
-(defmacro define-auto-mode! (mode &rest extensions)
+(defmacro def-auto-mode! (mode &rest extensions)
   "Associate file EXTENSIONS with MODE.
 Adds an entry to `auto-mode-alist' for each extension pattern."
   (let ((mode-sym mode))

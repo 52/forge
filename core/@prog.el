@@ -37,6 +37,12 @@
   (dolist (feature '(flymake))
     (add-to-list 'eglot-stay-out-of feature))
 
+  ;; Since we tell `eglot' to not interfere with `flymake' we need to
+  ;; explicitly add the `eglot-flymake-backend' to the list of available
+  ;; diagnostic functions when eglot is attached to a buffer.
+  (add-hook 'eglot--managed-mode-hook (lambda ()
+    (add-hook 'flymake-diagnostic-functions 'eglot-flymake-backend nil t)))
+
   ;; Display progress only in debug mode.
   (setq eglot-report-progress forge--debug)
 
