@@ -20,16 +20,25 @@
 (use-package frame
   :unless noninteractive
   :preface
+  (defun forge--mode-line-separator (&optional width)
+    "Returns a separator segment comprised of WIDTH spaces."
+    (let ((padding (max 1 (or width 1))))
+      (make-string padding ?\s)))
+
+  (defun forge--mode-line-buffer-modified ()
+    "Returns the buffer-modified segment."
+    (format "[%s]" (format-mode-line "%*")))
+
   (defun forge--mode-line-buffer-name ()
     "Returns the buffer-name segment."
     (propertize
-     (format " %s " (format-mode-line "%b"))
+     (format "%s" (format-mode-line "%b"))
      'face 'mode-line-buffer-id))
 
   (defun forge--mode-line-major-mode ()
     "Returns the major-mode segment."
     (propertize
-     (format " %s " (format-mode-line mode-name))
+     (format "%s" (format-mode-line mode-name))
      'face 'mode-line-emphasis))
 
   (defun forge--mode-line-render (left right)
@@ -42,8 +51,12 @@
   (defun forge--mode-line ()
     "Returns the mode line format specification."
     '((:eval (forge--mode-line-render
-              (quote ((:eval (forge--mode-line-buffer-name)) "[%*]"))
-              (quote ((:eval (forge--mode-line-major-mode))))))))
+              (quote ((:eval (forge--mode-line-separator))
+                      (:eval (forge--mode-line-buffer-modified))
+                      (:eval (forge--mode-line-separator))
+                      (:eval (forge--mode-line-buffer-name))))
+              (quote ((:eval (forge--mode-line-major-mode))
+                      (:eval (forge--mode-line-separator))))))))
   :config
   ;; Number of lines above and below the point.
   (setq scroll-margin 10)
