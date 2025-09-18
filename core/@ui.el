@@ -19,6 +19,31 @@
 
 (use-package frame
   :unless noninteractive
+  :preface
+  (defun forge--mode-line-buffer-name ()
+    "Returns the buffer-name segment."
+    (propertize
+     (format " %s " (format-mode-line "%b"))
+     'face 'mode-line-buffer-id))
+
+  (defun forge--mode-line-major-mode ()
+    "Returns the major-mode segment."
+    (propertize
+     (format " %s " (format-mode-line mode-name))
+     'face 'mode-line-emphasis))
+
+  (defun forge--mode-line-render (left right)
+    "Returns a formatted string spanning `window-width'."
+    (let* ((l (format-mode-line left))
+           (r (format-mode-line right))
+           (pad (- (window-total-width) (length l) (length r))))
+      (concat l (make-string pad ?\s) r)))
+
+  (defun forge--mode-line ()
+    "Returns the mode line format specification."
+    '((:eval (forge--mode-line-render
+              (quote ((:eval (forge--mode-line-buffer-name)) "[%*]"))
+              (quote ((:eval (forge--mode-line-major-mode))))))))
   :config
   ;; Number of lines above and below the point.
   (setq scroll-margin 10)
@@ -43,6 +68,9 @@
 
   ;; Suppress the default save messages.
   (setq save-silently t)
+
+  ;; Load the custom `forge--mode-line'.
+  (setq-default mode-line-format (forge--mode-line))
 
   ;; Load the `hades' theme after startup.
   (add-hook 'emacs-startup-hook (lambda () (load-theme 'hades t))))

@@ -172,6 +172,10 @@ For now this maintains the default but can be adjusted if needed.")
   ;; Start with an empty `*scratch*' buffer.
   (setq initial-scratch-message nil))
 
+;; Hide the mode-line from the very first frame.
+;; This prevents default elements from loading during startup.
+(setq-default mode-line-format nil)
+
 ;; Hide the menu bar from the very first frame.
 ;; Toggle back with `M-x menu-bar-mode'.
 (push '(menu-bar-lines . 0) default-frame-alist)
