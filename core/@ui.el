@@ -52,9 +52,9 @@
     "Returns the mode line format specification."
     '((:eval (forge--mode-line-render
               (quote ((:eval (forge--mode-line-separator))
-                      (:eval (forge--mode-line-buffer-modified))
+                      (:eval (forge--mode-line-buffer-name))
                       (:eval (forge--mode-line-separator))
-                      (:eval (forge--mode-line-buffer-name))))
+                      (:eval (forge--mode-line-buffer-modified))))
               (quote ((:eval (forge--mode-line-major-mode))
                       (:eval (forge--mode-line-separator))))))))
   :config
