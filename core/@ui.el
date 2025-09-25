@@ -20,6 +20,16 @@
 (use-package frame
   :unless noninteractive
   :preface
+  (defvar forge--mode-line-disabled-segments
+    '((forge--mode-line-buffer-modified . (vterm-mode)))
+    "Associates mode-line segments with the major modes that disable them.")
+
+  (defun forge--mode-line-segment (segment)
+    "Returns SEGMENT unless it is disabled for the current major mode."
+    (let ((modes (alist-get segment forge--mode-line-disabled-segments nil nil #'eq)))
+      (unless (and modes (apply #'derived-mode-p modes))
+        (funcall segment))))
+
   (defun forge--mode-line-separator (&optional width)
     "Returns a separator segment comprised of WIDTH spaces."
     (let ((padding (max 1 (or width 1))))
@@ -51,12 +61,12 @@
   (defun forge--mode-line ()
     "Returns the mode line format specification."
     '((:eval (forge--mode-line-render
-              (quote ((:eval (forge--mode-line-separator))
-                      (:eval (forge--mode-line-buffer-name))
-                      (:eval (forge--mode-line-separator))
-                      (:eval (forge--mode-line-buffer-modified))))
-              (quote ((:eval (forge--mode-line-major-mode))
-                      (:eval (forge--mode-line-separator))))))))
+              (quote ((:eval (forge--mode-line-segment 'forge--mode-line-separator))
+                      (:eval (forge--mode-line-segment 'forge--mode-line-buffer-name))
+                      (:eval (forge--mode-line-segment 'forge--mode-line-separator))
+                      (:eval (forge--mode-line-segment 'forge--mode-line-buffer-modified))))
+              (quote ((:eval (forge--mode-line-segment 'forge--mode-line-major-mode))
+                      (:eval (forge--mode-line-segment 'forge--mode-line-separator))))))))
   :config
   ;; Number of lines above and below the point.
   (setq scroll-margin 10)
@@ -87,6 +97,18 @@
 
   ;; Load the `hades' theme after startup.
   (add-hook 'emacs-startup-hook (lambda () (load-theme 'hades t))))
+
+(use-package window
+  :unless noninteractive
+  :config
+  ;; Enable `window-divider-mode' after initialization.
+  (add-hook 'after-init-hook #'window-divider-mode))
+
+(use-package tab-bar
+  :unless noninteractive
+  :config
+  ;; Enable `tab-bar-mode' after initialization.
+  (add-hook 'after-init-hook #'tab-bar-mode))
 
 (use-package fringe
   :unless noninteractive

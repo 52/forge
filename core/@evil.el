@@ -19,6 +19,10 @@
 
 (use-package evil
   :preface
+  (defvar forge--evil-disabled-modes
+    '(vterm-mode eshell-mode)
+    "List of modes where `evil-mode' is disabled.")
+
   (defun forge--evil-adjust-scroll-margin ()
     "Adjust the `scroll-margin' near end-of-buffer.
 This prevents extra lines at EOB when the point is within that distance."
@@ -58,6 +62,10 @@ This shows the file name, line count, and character count after saving."
 
   ;; Display `forge--evil-display-save-message' after saving.
   (add-hook 'after-save-hook #'forge--evil-display-save-message)
+
+  ;; Set the specific modes where `evil-mode' is disabled.
+  (dolist (mode forge--evil-disabled-modes)
+    (evil-set-initial-state mode 'emacs))
 
   ;; Enable `evil-mode' after initialization.
   (add-hook 'after-init-hook #'evil-mode))
