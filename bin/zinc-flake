@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # USAGE:
-#   zinc-flake [-?|--debug] [-h|--help] NAME
+#   zinc-flake [-?|--debug] [-h|--help] NAME [ARGS...]
 #
 # OPTIONS:
 #   -?, --debug   -- Enables debug (verbose) mode.
@@ -40,20 +40,19 @@ if [[ $# -eq 0 ]]; then
   exit 1
 fi
 
-# Assert that we have exactly one argument.
-if [[ $# -ne 1 ]]; then
-  error "Too many arguments, exiting process..."
-  exit 1
-fi
-
 # Get the flake name.
 FLAKE="$1"
+shift
 
 # Build the remote flake url.
 FLAKE_URL="github:52/nix-flakes?dir=${FLAKE}"
 
 # Build the 'nix develop' command.
-COMMAND="nix develop ${FLAKE_URL} --refresh --no-write-lock-file --impure -c ${SHELL:-bash}"
+if [[ $# -eq 0 ]]; then
+  COMMAND="nix develop ${FLAKE_URL} --refresh --no-write-lock-file --impure -c ${SHELL:-bash}"
+else
+  COMMAND="nix develop ${FLAKE_URL} --refresh --no-write-lock-file --impure $@"
+fi
 
 if [[ "$DEBUG" -eq 1 ]]; then
   debug "Entering '$FLAKE' from '$FLAKE_URL'"
