@@ -1,13 +1,11 @@
 {
   lib,
-  config,
   osConfig,
   ...
 }:
 let
   inherit (lib) mkIf;
   inherit (osConfig) wayland;
-  inherit (config) theme;
 in
 mkIf wayland.enable {
   # Set the default terminal.
@@ -32,13 +30,6 @@ mkIf wayland.enable {
 
     # Set the clipboard target.
     selection-target=both
-
-    [colors]
-    # Set the background color.
-    background=${theme.colors.background}
-
-    # Set the foreground color.
-    foreground=${theme.colors.foreground}
 
     [key-bindings]
     # Unbind specified keys by assigning them to noop.

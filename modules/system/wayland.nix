@@ -29,32 +29,24 @@ in
         wl-clipboard
         slurp
         grim
-        wev
         ;
     };
 
-    # Enable "Sway".
-    # See: https://swaywm.org
-    programs.sway.enable = true;
-
-    # Enable "UWSM" (Universal Wayland Session Manager).
-    # See: https://github.com/vladimir-csp/uwsm
-    programs.uwsm = {
+    # Enable "Hyprland".
+    # See: https://hypr.land
+    programs.hyprland = {
       enable = true;
 
-      # Define the wayland compositors.
-      waylandCompositors.sway = {
-        prettyName = "Sway";
-        comment = "Sway compositor managed by UWSM";
-        binPath = "/run/current-system/sw/bin/sway";
-      };
+      # Launch Hyprland with the UWSM (Universal Wayland Session Manager).
+      # See: https://github.com/Vladimir-csp/uwsm
+      withUWSM = true;
     };
 
     # Automatically start "UWSM" on login.
     programs.bash.loginShellInit = ''
       if [ "$(tty)" = "/dev/tty1" ]; then
         if uwsm check may-start; then
-          exec uwsm start sway-uwsm.desktop
+          exec uwsm start hyprland-uwsm.desktop
         fi
       fi
     '';
@@ -64,13 +56,19 @@ in
     xdg.portal = {
       enable = true;
 
-      # Install the backends for "WLR" and "GTK".
+      # Install the backend for "GTK".
       extraPortals = builtins.attrValues {
         inherit (pkgs)
-          xdg-desktop-portal-wlr
           xdg-desktop-portal-gtk
           ;
       };
+
+      # Configure the portal backends.
+      # This prefers "Hyprland" and falls back to "GTK".
+      config.common.default = [
+        "hyprland"
+        "gtk"
+      ];
     };
 
     # Enable "Polkit".

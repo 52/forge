@@ -32,9 +32,6 @@
   # Add the "github:nix-community/nur" overlay.
   nur = inputs.nur.overlays.default;
 
-  # Add the "github:52/forge" overlay.
-  forge = inputs.forge.overlays.default;
-
   # Add the "github:52/vix" overlay.
   vix = inputs.vix.overlays.default;
 }
