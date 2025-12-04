@@ -40,14 +40,20 @@ in
       programs.ssh = {
         enable = true;
 
-        # Automatically add keys to the "ssh-agent".
-        addKeysToAgent = "yes";
+        # Disable the default values.
+        enableDefaultConfig = false;
 
-        # Set the preferred cryptographic algorithms.
-        extraConfig = ''
-          HostKeyAlgorithms ssh-ed25519,ssh-ed25519-cert-v01@openssh.com
-          PubkeyAcceptedAlgorithms ssh-ed25519,ssh-ed25519-cert-v01@openssh.com 
-        '';
+        # Configure the default match block.
+        matchBlocks."*" = {
+          # Automatically add keys to the "ssh-agent".
+          addKeysToAgent = "yes";
+
+          # Set the preferred cryptographic algorithms.
+          extraOptions = {
+            HostKeyAlgorithms = "ssh-ed25519,ssh-ed25519-cert-v01@openssh.com";
+            PubkeyAcceptedAlgorithms = "ssh-ed25519,ssh-ed25519-cert-v01@openssh.com";
+          };
+        };
       };
 
       # Enable "ssh-agent".
@@ -89,7 +95,7 @@ in
       };
 
       # Force rewrite "HTTPS" to "SSH".
-      programs.git.extraConfig.url = {
+      programs.git.settings.url = {
         "ssh://git@github.com".insteadOf = "https://github.com";
         "ssh://git@gitlab.com".insteadOf = "https://gitlab.com";
       };
@@ -112,7 +118,7 @@ in
         };
 
         # Set the signing format to "SSH".
-        extraConfig.gpg.format = "ssh";
+        settings.gpg.format = "ssh";
       };
     })
   ];

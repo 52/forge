@@ -33,7 +33,7 @@ in
     };
 
     # Enable "Hyprland".
-    # See: https://hypr.land
+    # See: https://github.com/hyprwm/Hyprland
     programs.hyprland = {
       enable = true;
 

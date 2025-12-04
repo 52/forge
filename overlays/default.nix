@@ -9,16 +9,6 @@
   # Add custom overrides.
   overrides = final: prev: { };
 
-  # Add stable packages.
-  stable-packages = final: _prev: {
-    stable = import inputs.nixpkgs-stable {
-      inherit (final) system;
-      config = {
-        allowUnfree = true;
-      };
-    };
-  };
-
   # Add unstable packages.
   unstable-packages = final: _prev: {
     unstable = import inputs.nixpkgs-unstable {

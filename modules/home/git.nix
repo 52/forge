@@ -47,13 +47,11 @@ in
     programs.git = {
       enable = true;
 
-      # Set the author name.
-      userName = cfg.name;
+      settings = {
+        user = {
+          inherit (cfg) name email;
+        };
 
-      # Set the author email.
-      userEmail = cfg.email;
-
-      extraConfig = {
         core = {
           # Set the default editor.
           editor = env.EDITOR;

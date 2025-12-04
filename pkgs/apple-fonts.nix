@@ -80,7 +80,7 @@ stdenvNoCC.mkDerivation {
 
   meta = with lib; {
     homepage = "https://developer.apple.com/fonts";
-    description = "Apple Fonts for nixOS";
+    description = "Apple Fonts for NixOS";
     platforms = platforms.all;
     license = licenses.unfree;
   };
