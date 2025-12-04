@@ -69,13 +69,8 @@ stdenvNoCC.mkDerivation {
 
   installPhase = ''
     find . -name "*.otf" -exec install -Dm644 {} -t $out/share/fonts/opentype \;
-    find . -name "*.ttf" -exec install -Dm644 {} -t $out/share/fonts/truetype \;
-
     mkfontscale "$out/share/fonts/opentype"
     mkfontdir "$out/share/fonts/opentype"
-
-    mkfontscale "$out/share/fonts/truetype"
-    mkfontdir "$out/share/fonts/truetype"
   '';
 
   meta = with lib; {
