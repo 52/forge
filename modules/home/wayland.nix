@@ -101,7 +101,7 @@ mkIf wayland.enable {
 
       decoration = {
         # Set the window rounding.
-        rounding = 5;
+        rounding = 9;
         # Enable the inactive window dimming.
         dim_inactive = true;
         # Set the inactive window dimming strength.
