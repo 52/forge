@@ -55,6 +55,7 @@ in
           "gb" = "git branch";
           "gc" = "git commit";
           "gd" = "git diff";
+          "gp" = "git push";
           "gs" = "git status";
         })
 
