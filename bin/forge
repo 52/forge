@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # USAGE:
-#   zinc [-?|--debug] [-h|--help] COMMAND [ARGS...]
+#   forge [-?|--debug] [-h|--help] COMMAND [ARGS...]
 #
 # OPTIONS:
 #   -?, --debug   -- Enables debug (verbose) mode.
@@ -49,7 +49,7 @@ COMMAND="$1"
 shift
 
 # Build the corresponding sub-script path.
-SCRIPT="${DIRECTORY}/zinc-${COMMAND}"
+SCRIPT="${DIRECTORY}/forge-${COMMAND}"
 
 # Assert that the script exists.
 if [[ ! -x "$SCRIPT" ]]; then
@@ -58,7 +58,7 @@ if [[ ! -x "$SCRIPT" ]]; then
 fi
 
 # Export the debug flag for sub-processes.
-export MX_DEBUG="$DEBUG"
+export FORGE_DEBUG="$DEBUG"
 
 # Execute the script.
 exec "$SCRIPT" "$@"
