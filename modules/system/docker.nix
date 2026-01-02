@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkOption mkIf types;
+  inherit (lib) mkIf mkOption types;
   cfg = config.docker;
 in
 {

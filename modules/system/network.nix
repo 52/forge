@@ -3,6 +3,10 @@
   config,
   ...
 }:
+let
+  inherit (lib) filterAttrs;
+  inherit (config) users;
+in
 {
   # Enable "NetworkManager".
   # See: https://github.com/NetworkManager/NetworkManager
@@ -31,8 +35,6 @@
 
   # Manage the "networkmanager" group.
   users.groups.networkmanager = {
-    members = builtins.attrNames (
-      lib.filterAttrs (_: user: user.isNormalUser or false) config.users.users
-    );
+    members = builtins.attrNames (filterAttrs (_: user: user.isNormalUser or false) users.extraUsers);
   };
 }

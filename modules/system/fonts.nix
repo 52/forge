@@ -45,7 +45,7 @@
           "Noto Color Emoji"
         ];
 
-        # Serif fonts are were glorious mistake.
+        # Serif fonts were a glorious mistake.
         # This defaults to sans-serif instead.
         serif = sansSerif;
 

@@ -1,19 +1,36 @@
 {
+  lib,
   pkgs,
+  config,
   ...
 }:
+let
+  inherit (lib) mkIf mkOption types;
+  cfg = config.vim;
+in
 {
-  # Set the default editor.
-  env.EDITOR = "vim";
+  options.vim = {
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = ''
+        Whether to enable the "vim" module.
 
-  # Set the default visual editor.
-  env.VISUAL = "vim";
+        This configures vim with sensible defaults.
+      '';
+    };
+  };
 
-  # Enable "vim".
-  # See: https://www.vim.org
-  home.packages = builtins.attrValues {
-    inherit (pkgs)
-      vix
-      ;
+  config = mkIf cfg.enable {
+    # Set the default editor.
+    env.EDITOR = "vim";
+
+    # Enable "vim".
+    # See: https://www.vim.org
+    home.packages = builtins.attrValues {
+      inherit (pkgs)
+        vix
+        ;
+    };
   };
 }

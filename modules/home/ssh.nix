@@ -4,8 +4,8 @@
   ...
 }:
 let
-  inherit (lib) mkOption mkIf types;
-  inherit (config) git;
+  inherit (lib) mkIf mkMerge mkOption types;
+  inherit (config) git home;
   cfg = config.ssh;
 in
 {
@@ -33,21 +33,18 @@ in
     };
   };
 
-  config = lib.mkMerge [
+  config = mkMerge [
     {
       # Enable "SSH".
       # See: https://www.openssh.com
       programs.ssh = {
         enable = true;
-
-        # Disable the default values.
         enableDefaultConfig = false;
 
         # Configure the default match block.
         matchBlocks."*" = {
           # Automatically add keys to the "ssh-agent".
           addKeysToAgent = "yes";
-
           # Set the preferred cryptographic algorithms.
           extraOptions = {
             HostKeyAlgorithms = "ssh-ed25519,ssh-ed25519-cert-v01@openssh.com";
@@ -70,8 +67,7 @@ in
           # Export "SSH_AUTH_SOCK" to the user environment after "ssh-agent" starts.
           # This ensures that all services can access the socket.
           ExecStartPost = "systemctl --user set-environment \"SSH_AUTH_SOCK=%t/ssh-agent\"";
-
-          # Afterwards, we unset "SSH_AUTH_SOCK" when "ssh-agent" stops.
+          # Unset "SSH_AUTH_SOCK" when "ssh-agent" stops.
           # This prevents any stale socket references.
           ExecStopPost = "systemctl --user unset-environment SSH_AUTH_SOCK";
         };
@@ -79,22 +75,19 @@ in
     }
 
     (mkIf cfg.enableGitIntegration {
-      # Set the "git" match block.
+      # Configure the "git" match block.
       programs.ssh.matchBlocks."git" = {
         # Set the user for authentication.
         user = "git";
-
         # Match only on "GitHub" and "GitLab" hosts.
         host = "github.com gitlab.com";
-
         # Set the identity file (Private Key).
-        identityFile = "${config.home.homeDirectory}/.ssh/id_ed25519";
-
+        identityFile = "${home.homeDirectory}/.ssh/id_ed25519";
         # Only use the specified identity.
         identitiesOnly = true;
       };
 
-      # Force rewrite "HTTPS" to "SSH".
+      # Rewrite "HTTPS" to "SSH".
       programs.git.settings.url = {
         "ssh://git@github.com".insteadOf = "https://github.com";
         "ssh://git@gitlab.com".insteadOf = "https://gitlab.com";
@@ -112,13 +105,11 @@ in
         signing = {
           # Enable signing by default.
           signByDefault = true;
-
+          # Set the signing format to "SSH".
+          format = "ssh";
           # Set the public key file.
-          key = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
+          key = "${home.homeDirectory}/.ssh/id_ed25519.pub";
         };
-
-        # Set the signing format to "SSH".
-        settings.gpg.format = "ssh";
       };
     })
   ];

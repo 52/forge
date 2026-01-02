@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkOption mkIf types;
+  inherit (lib) filterAttrs mkIf mkOption types;
+  inherit (config) users;
   cfg = config.wayland;
 in
 {
@@ -77,9 +78,7 @@ in
 
     # Manage the "video" group.
     users.groups.video = {
-      members = builtins.attrNames (
-        lib.filterAttrs (_: user: user.isNormalUser or false) config.users.users
-      );
+      members = builtins.attrNames (filterAttrs (_: user: user.isNormalUser or false) users.extraUsers);
     };
   };
 }

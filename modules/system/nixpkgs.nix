@@ -4,16 +4,21 @@
   outputs,
   ...
 }:
+let
+  inherit (lib) importAll;
+  inherit (inputs) home-manager;
+  inherit (outputs) overlays;
+in
 {
   imports = builtins.attrValues {
-    inherit (inputs.home-manager.nixosModules)
+    inherit (home-manager.nixosModules)
       home-manager
       ;
   };
 
   nixpkgs = {
     # Set the list of overlays to apply to "nixpkgs".
-    overlays = builtins.attrValues outputs.overlays;
+    overlays = builtins.attrValues overlays;
 
     # Enable the use of proprietary packages.
     config.allowUnfree = true;
@@ -21,7 +26,7 @@
 
   home-manager = {
     # Import all home-manager modules.
-    sharedModules = lib.importAll "modules/home";
+    sharedModules = importAll "modules/home";
 
     # Use the system-wide "nixpkgs" instance.
     useGlobalPkgs = true;

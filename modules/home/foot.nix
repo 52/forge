@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) concatMapStringsSep mkIf;
   inherit (osConfig) wayland;
   inherit (config) theme;
 in
@@ -22,7 +22,7 @@ mkIf wayland.enable {
   xdg.configFile."foot/foot.ini".text = ''
     [main]
     # Set the terminal font.
-    ${lib.concatMapStringsSep "\n" (var: "font${var}=pixel:pixelsize=20") [
+    ${concatMapStringsSep "\n" (var: "font${var}=pixel:pixelsize=20") [
       ""
       "-bold"
       "-bold-italic"
@@ -30,7 +30,7 @@ mkIf wayland.enable {
     ]}
 
     # Set the font size adjustment.
-    font-size-adjustment=1px
+    font-size-adjustment=100%
 
     # Set the window padding.
     pad=15x10 center
@@ -41,7 +41,6 @@ mkIf wayland.enable {
     [colors]
     # Set the background color.
     background=${theme.colors.active.background}
-
     # Set the foreground color.
     foreground=${theme.colors.active.foreground}
 

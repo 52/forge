@@ -100,7 +100,7 @@ rec {
       stateVersion,
     }:
     {
-      users.users.${name} = {
+      users.extraUsers.${name} = {
         inherit description isNormalUser extraGroups;
       };
 

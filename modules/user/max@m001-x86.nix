@@ -14,8 +14,6 @@ lib.mkUser {
   packages = builtins.attrValues {
     inherit (pkgs)
       hyperfine
-      ripgrep
-      jq
       ;
   };
 
@@ -47,6 +45,18 @@ lib.mkUser {
     ssh = {
       enableGitIntegration = true;
       enableGitSigning = true;
+    };
+
+    # Configure the "vim" module.
+    # See "home/vim.ssh"
+    vim = {
+      enable = true;
+    };
+
+    # Configure the "tmux" module.
+    # See "home/tmux.ssh"
+    tmux = {
+      enable = true;
     };
   };
 

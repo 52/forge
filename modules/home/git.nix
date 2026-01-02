@@ -4,7 +4,7 @@
   ...
 }:
 let
-  inherit (lib) mkOption mkIf types;
+  inherit (lib) mkIf mkOption types;
   inherit (config) env;
   cfg = config.git;
 in
@@ -26,7 +26,7 @@ in
       description = ''
         The user name used in commits.
 
-        Ths will be shown as the author name in commit history.
+        This will be shown as the author name in commit history.
       '';
     };
 
@@ -36,7 +36,7 @@ in
       description = ''
         The user email used in commits.
 
-        Ths will be shown as the author email in commit history.
+        This will be shown as the author email in commit history.
       '';
     };
   };
@@ -55,10 +55,8 @@ in
         core = {
           # Set the default editor.
           editor = env.EDITOR;
-
           # Monitor the file-system for changes.
           fsmonitor = true;
-
           # Enable caching of untracked files.
           untrackedCache = true;
         };
@@ -66,35 +64,28 @@ in
         push = {
           # Push only the current branch.
           default = "simple";
-
-          # Automatically create remote branches.
-          autoSetupRemote = true;
-
           # Automatically push annotated tags.
           followTags = true;
+          # Automatically create remote branches.
+          autoSetupRemote = true;
         };
 
         rebase = {
-          # Automatically squash commits.
-          autoSquash = true;
-
-          # Automatically stash changes.
-          autoStash = true;
-
           # Automatically update dependent branches.
           updateRefs = true;
+          # Automatically squash commits.
+          autoSquash = true;
+          # Automatically stash changes.
+          autoStash = true;
         };
 
         diff = {
           # Use the histogram diff algorithm.
           algorithm = "histogram";
-
           # Highlight moved lines in different colors.
           colorMoved = "plain";
-
           # Use descriptive prefixes.
           mnemonicPrefix = true;
-
           # Detect and display renamed files.
           renames = true;
         };
@@ -102,25 +93,27 @@ in
         commit = {
           # Clean up commit messages at the scissors markers.
           cleanup = "scissors";
-
           # Display the full diff in the commit message editor.
           verbose = true;
+        };
+
+        branch = {
+          # Sort branches by the most recent commit.
+          sort = "-committerdate";
+          # Enable tracking for remote branches.
+          autoSetupMerge = true;
+          # Disable automatic rebasing when pulling.
+          autoSetupRebase = "never";
         };
 
         # Set the default branch name.
         init.defaultBranch = "master";
 
-        # Sort branches by the most recent commit.
-        branch.sort = "-committerdate";
-
-        # Sort tags by the version and name.
-        tag.sort = "version:refname";
-
-        # Enable columized output.
-        column.ui = "auto";
-
         # Enable colored output.
         color.ui = "auto";
+
+        # Enable columnized output.
+        column.ui = "auto";
 
         # Enable autocorrect for mistyped commands.
         help.autocorrect = 1;

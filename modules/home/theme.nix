@@ -3,13 +3,13 @@
   ...
 }:
 let
-  inherit (lib) mkOption types;
+  inherit (lib) mkOption relativePath types;
 in
 {
   options.theme = {
     wallpaper = mkOption {
       type = types.path;
-      default = lib.relativePath "local/137242.png";
+      default = relativePath "local/137242.png";
       description = ''
         Path to the wallpaper file.
 

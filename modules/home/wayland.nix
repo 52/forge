@@ -7,8 +7,8 @@
 }:
 let
   inherit (lib) mkIf;
-  inherit (osConfig) wayland keyboard;
-  inherit (config) theme env;
+  inherit (osConfig) keyboard wayland;
+  inherit (config) env theme;
 in
 mkIf wayland.enable {
   # Enable "Hyprland".
@@ -66,7 +66,7 @@ mkIf wayland.enable {
       cursor = {
         # Disable the cursor warping on focus change.
         no_warps = true;
-        # Disable the cursor after a keypress.
+        # Hide the cursor after a keypress.
         hide_on_key_press = true;
         # Set the cursor inactivity timeout (seconds).
         inactive_timeout = 3;
@@ -202,7 +202,7 @@ mkIf wayland.enable {
 
         # <MOD> + <Tab> to cycle focus (NEXT).
         "$mod, Tab, cyclenext"
-        # <MOD> + <Tab> to cycle focus (PREV).
+        # <MOD> + <Shift> + <Tab> to cycle focus (PREV).
         "$mod SHIFT, Tab, cyclenext, prev"
 
         # <Print> to capture the entire screen.

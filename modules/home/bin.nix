@@ -4,14 +4,16 @@
   ...
 }:
 let
+  inherit (lib) attrNames filterAttrs readFileRelative relativePath;
+
   # List of scripts inside the "bin" directory.
-  scripts = lib.attrNames (
-    lib.filterAttrs (_: type: type == "regular") (builtins.readDir (lib.relativePath "bin"))
+  scripts = attrNames (
+    filterAttrs (_: type: type == "regular") (builtins.readDir (relativePath "bin"))
   );
 in
 {
-  # Install all scripts, see: "bin" folder.
+  # Install custom scripts, see: "bin" folder.
   home.packages = builtins.map (
-    name: pkgs.writeScriptBin name (lib.readFileRelative "bin/${name}")
+    name: pkgs.writeScriptBin name (readFileRelative "bin/${name}")
   ) scripts;
 }

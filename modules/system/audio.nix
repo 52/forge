@@ -3,6 +3,10 @@
   config,
   ...
 }:
+let
+  inherit (lib) filterAttrs;
+  inherit (config) users;
+in
 {
   # Enable "PipeWire".
   # See: https://pipewire.org
@@ -36,8 +40,6 @@
 
   # Manage the "audio" group.
   users.groups.audio = {
-    members = builtins.attrNames (
-      lib.filterAttrs (_: user: user.isNormalUser or false) config.users.users
-    );
+    members = builtins.attrNames (filterAttrs (_: user: user.isNormalUser or false) users.extraUsers);
   };
 }

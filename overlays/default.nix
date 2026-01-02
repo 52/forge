@@ -6,9 +6,6 @@
   # Add custom packages.
   additions = final: _prev: import ../pkgs { pkgs = final; };
 
-  # Add custom overrides.
-  overrides = final: prev: { };
-
   # Add unstable packages.
   unstable-packages = final: _prev: {
     unstable = import inputs.nixpkgs-unstable {

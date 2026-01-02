@@ -1,124 +1,130 @@
 {
+  lib,
   config,
   ...
 }:
+let
+  inherit (lib) mkMerge optionalAttrs;
+  inherit (config) git tmux vim;
+in
 {
   # Set the default shell.
   env.SHELL = "bash";
 
-  # Enable "bash".
-  # See: https://www.gnu.org/software/bash
-  programs.bash = {
-    enable = true;
+  programs = {
+    # Enable "bash".
+    # See: https://www.gnu.org/software/bash
+    bash = {
+      enable = true;
 
-    # Limit the history size to n-lines.
-    historySize = 500000;
+      # Limit the history size to n-lines.
+      historySize = 500000;
+      # Limit the on-disk history file to n-lines.
+      historyFileSize = 100000;
+      # Relocate the ".bash_history" file from $HOME.
+      historyFile = "$XDG_DATA_HOME/bash/bash_history";
 
-    # Limit the on disk history file to n-lines.
-    historyFileSize = 100000;
+      shellOptions = [
+        # Enable recursive pattern matching with "**".
+        "globstar 2> /dev/null"
+        # Enable case-insensitive filename matching.
+        "nocaseglob"
+        # Append new lines to the history file.
+        "histappend"
+        # Check the window size after each command.
+        "checkwinsize"
+        # Save multi-line commands as a single history entry.
+        "cmdhist"
+        # Automatically prepend "cd" to directory names.
+        "autocd 2> /dev/null"
+        # Automatically correct spelling errors in "cd".
+        "cdspell 2> /dev/null"
+        # Automatically correct spelling errors in completion.
+        "dirspell 2> /dev/null"
+      ];
 
-    # Remove the ".bash_history" file from $HOME.
-    historyFile = "${config.xdg.dataHome}/bash/bash_history";
+      shellAliases = mkMerge [
+        (optionalAttrs vim.enable {
+          "v" = "vim";
+          "vi" = "vim";
+        })
 
-    historyControl = [
-      # Ignore duplicate entries in history.
-      "ignoredups"
+        (optionalAttrs git.enable {
+          "g" = "git";
+          "ga" = "git add";
+          "gb" = "git branch";
+          "gc" = "git commit";
+          "gd" = "git diff";
+          "gs" = "git status";
+        })
 
-      # Remove duplicate entries from history.
-      "erasedups"
-    ];
+        (optionalAttrs tmux.enable {
+          "t" = "tmux";
+          "ta" = "tmux attach";
+          "td" = "tmux detach";
+          "tk" = "tmux kill-session -t";
+          "tl" = "tmux ls";
+        })
+      ];
 
-    shellOptions = [
-      # Enable recursive pattern matching with "**".
-      "globstar 2> /dev/null"
+      initExtra = ''
+        ## Enable "bash-sensible".
+        ## See: https://github.com/mrzool/bash-sensible
 
-      # Enable case-insensitive filename matching.
-      "nocaseglob"
+        # Enable case-insensitive completion.
+        bind "set completion-ignore-case on"
 
-      # Append new lines to the history file.
-      "histappend"
+        # Treat hyphens and underscores as equivalent.
+        bind "set completion-map-case on"
 
-      # Check the window size after each command.
-      "checkwinsize"
+        # Display all matches immediately.
+        bind "set show-all-if-ambiguous on"
 
-      # Save multi-line commands as a single history entry.
-      "cmdhist"
+        # Append slashes to symlinked directories.
+        bind "set mark-symlinked-directories on"
 
-      # Automatically prepend "cd" to directory names.
-      "autocd 2> /dev/null"
+        # Move the cursor to EOL when cycling through history.
+        bind "set history-preserve-point off"
 
-      # Automatically correct spelling errors in "cd".
-      "cdspell 2> /dev/null"
+        # Enable cycling through tab completion options.
+        bind 'tab: menu-complete'
+        bind '"\e[Z": menu-complete-backward'
 
-      # Automatically correct spelling errors in completion.
-      "dirspell 2> /dev/null"
-    ];
+        # Enable incremental history search with arrow keys.
+        bind '"\e[A": history-search-backward'
+        bind '"\e[B": history-search-forward'
+        bind '"\e[C": forward-char'
+        bind '"\e[D": backward-char'
 
-    shellAliases = {
-      ".." = "cd ..";
+        ## Load the "__git_ps1" command.
+        . $HOME/.nix-profile/share/git/contrib/completion/git-prompt.sh
 
-      df = "df -h";
-      du = "du -h -c";
-
-      ls = "ls -lF -G --group-directories-first --color=auto";
-      la = "ls -lAF -G --group-directories-first --color=auto";
-
-      g = "git";
-      ga = "git add";
-      gp = "git push";
-      gd = "git diff";
-      gc = "git commit";
-      gs = "git status";
-      gb = "git branch";
-      gl = "git log --decorate --oneline --graph";
-
-      n = "nix";
-      nd = "nix develop";
-
-      v = "vim";
-      vi = "vim";
-
-      t = "tmux";
-      tl = "tmux ls";
-      td = "tmux detach";
-      ta = "tmux attach -t";
-      tk = "tmux kill-session -t";
+        ## Load the custom prompt.
+        PS1='\n\[\e[32m\]\w''$(__git_ps1 "\[\e[31m\] [%s]")\[\e[36m\]''${IN_NIX_SHELL:+ *}\[\e[0m\] '
+      '';
     };
 
-    initExtra = ''
-      ## Enable "bash-sensible".
-      ## See: https://github.com/mrzool/bash-sensible
+    # Enable "direnv".
+    # See: https://direnv.net
+    direnv = {
+      enable = true;
 
-      # Enable case-insensitive completion.
-      bind "set completion-ignore-case on"
+      # Enable "nix-direnv".
+      # See: https://github.com/nix-community/nix-direnv
+      nix-direnv.enable = true;
+    };
 
-      # Treat hyphens and underscores as equivalent.
-      bind "set completion-map-case on"
+    # Enable "eza".
+    # See: https://github.com/eza-community/eza
+    eza = {
+      enable = true;
+      enableBashIntegration = true;
 
-      # Display all matches immediately.
-      bind "set show-all-if-ambiguous on"
-
-      # Append slashes to symlinked directories.
-      bind "set mark-symlinked-directories on"
-
-      # Move the cursor to EOL when cycling through history.
-      bind "set history-preserve-point off"
-
-      # Enable cycling through tab completion options.
-      bind 'tab: menu-complete'
-      bind '"\e[Z": menu-complete-backward'
-
-      # Enable incremental history search with arrow keys.
-      bind '"\e[A": history-search-backward'
-      bind '"\e[B": history-search-forward'
-      bind '"\e[C": forward-char'
-      bind '"\e[D": backward-char'
-
-      ## Load the "__git_ps1" command.
-      . $HOME/.nix-profile/share/git/contrib/completion/git-prompt.sh
-
-      ## Load the custom prompt.
-      PS1='\n\[\e[32m\]\w''$(__git_ps1 "\[\e[31m\] [%s]")\[\e[36m\]''${IN_NIX_SHELL:+ *}\[\e[0m\] '
-    '';
+      extraOptions = [
+        "--group-directories-first"
+        "--git"
+        "-lF"
+      ];
+    };
   };
 }
