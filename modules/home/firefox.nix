@@ -53,6 +53,8 @@ mkIf wayland.enable {
 
         # Disable "Ask to save passwords".
         "signon.rememberSignons" = false;
+        # Disable "Search and form history".
+        "browser.formfill.enable" = false;
         # Disable "Save and fill addresses".
         "extensions.formautofill.addresses.enabled" = false;
         # Disable "Save and fill payment methods".
