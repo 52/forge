@@ -91,12 +91,7 @@
       # See: https://nix.dev/manual/nix/2.18/command-ref/new-cli/nix3-develop
       devShells = forEachSystem (pkgs: {
         default = pkgs.mkShell {
-          packages = with pkgs; [
-            nixfmt-rfc-style
-            deadnix
-            statix
-            nixd
-          ];
+          packages = [ ];
         };
       });
 
