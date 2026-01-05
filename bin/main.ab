@@ -1,0 +1,85 @@
+// © 2026 Max Karou. All Rights Reserved.
+// Licensed under Apache Version 2.0, or MIT License, at your discretion.
+//
+// Apache License: http://www.apache.org/licenses/LICENSE-2.0
+// MIT License: http://opensource.org/licenses/MIT
+//
+// Usage of this file is permitted solely under a sanctioned license.
+
+import { array_contains, array_shift } from "std/array"
+
+import * from "./lib/args.ab"
+import * from "./lib/trace.ab"
+
+import { _cmd_dev } from "./forge.d/dev.ab"
+import { _cmd_rebuild } from "./forge.d/rebuild.ab"
+
+/// Target scope for trace messages.
+const TARGET = "forge::main"
+
+/// Text for "--help" message output.
+const HELP = "
+Usage: forge COMMAND [ARGS...] [OPTIONS]
+
+Commands:
+  dev [name]      Enter a remote development environment.
+  rebuild [path]  Rebuild the NixOS configuration.
+
+Options:
+  -?, --debug     Enable debug (verbose) mode.
+  -h, --help      Print the help message.
+"
+
+main(_argv) {
+    let args = _argv
+    array_shift(args)
+
+    if len(args) == 0 {
+        echo HELP
+        exit(0)
+    }
+
+    let cmd = args[0]
+    array_shift(args)
+
+    if is_flag(cmd, "-h", "--help") {
+        echo HELP
+        exit(0)
+    }
+
+    if not array_contains([ "dev", "rebuild" ], cmd) {
+        trace_error("forge::main", "Unknown command '{cmd}'")
+        exit(1)
+    }
+
+    let debug = false
+    let cmd_args = [Text]
+
+    loop {
+        if len(args) == 0: break
+
+        let arg = args[0]
+        array_shift(args)
+
+        if is_flag(arg, "-h", "--help") {
+            echo HELP
+            exit(0)
+        }
+
+        if is_flag(arg, "-?", "--debug") {
+            debug = true
+            continue
+        }
+
+        cmd_args += [arg]
+    }
+
+    if debug {
+        trace_debug(TARGET, "Dispatching command '{cmd}'")
+    }
+
+    if {
+        cmd == "dev": _cmd_dev(cmd_args, debug)
+        cmd == "rebuild": _cmd_rebuild(cmd_args, debug)
+    }
+}

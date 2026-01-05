@@ -1,0 +1,51 @@
+// © 2026 Max Karou. All Rights Reserved.
+// Licensed under Apache Version 2.0, or MIT License, at your discretion.
+//
+// Apache License: http://www.apache.org/licenses/LICENSE-2.0
+// MIT License: http://opensource.org/licenses/MIT
+//
+// Usage of this file is permitted solely under a sanctioned license.
+
+import { dir_exists, file_exists } from "std/fs"
+
+import * from "../lib/trace.ab"
+
+/// Target scope for trace messages.
+const TARGET = "forge::rebuild"
+
+/// Rebuilds the NixOS operating system.
+/// Executes "nixos-rebuild switch" with the specified flake path.
+pub fun _cmd_rebuild(_args: [Text], debug: Bool): Null {
+    let args = _args
+
+    if len(args) > 1 {
+        trace_error(TARGET, "Too many arguments specified")
+        exit(1)
+    }
+
+    let path = len(args) == 1 then args[0] else "."
+
+    if not dir_exists(path) {
+        trace_error(TARGET, "'{path}' does not exist")
+        exit(1)
+    }
+
+    if not file_exists("{path}/flake.nix") {
+        trace_error(TARGET, "'flake.nix' not found in '{path}'")
+        exit(1)
+    }
+
+    let hostname = $ hostname $ failed {
+        trace_error(TARGET, "Failed to get hostname")
+        exit(1)
+    }
+
+    if debug {
+        trace_debug(TARGET, "Rebuilding '{hostname}' from '{path}'")
+    }
+
+    $ sudo nixos-rebuild switch --flake "{path}#{hostname}" $ failed {
+        trace_error(TARGET, "Failed to rebuild '{hostname}'")
+        exit(1)
+    }
+}

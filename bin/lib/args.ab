@@ -1,0 +1,13 @@
+// © 2026 Max Karou. All Rights Reserved.
+// Licensed under Apache Version 2.0, or MIT License, at your discretion.
+//
+// Apache License: http://www.apache.org/licenses/LICENSE-2.0
+// MIT License: http://opensource.org/licenses/MIT
+//
+// Usage of this file is permitted solely under a sanctioned license.
+
+/// Compares a flag against the short or long form.
+/// Returns true if it matches either form.
+pub fun is_flag(flag: Text, short: Text, long: Text): Bool {
+    return flag == short or flag == long
+}

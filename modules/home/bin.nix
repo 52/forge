@@ -4,16 +4,45 @@
   ...
 }:
 let
-  inherit (lib) attrNames filterAttrs readFileRelative relativePath;
+  inherit (lib) relativePath;
 
-  # List of scripts inside the "bin" directory.
-  scripts = attrNames (
-    filterAttrs (_: type: type == "regular") (builtins.readDir (relativePath "bin"))
-  );
+  ## The package name.
+  ##
+  #@ String
+  pname = "forge";
+
+  ## The package version.
+  ##
+  #@ String
+  version = "0.1.0";
+
+  ## The package derivation.
+  ##
+  #@ Derivation
+  forge = pkgs.stdenv.mkDerivation {
+    inherit pname version;
+
+    src = relativePath "bin";
+
+    nativeBuildInputs = with pkgs; [
+      amber-lang
+      makeWrapper
+    ];
+
+    buildPhase = ''
+      amber build main.ab ${pname}
+    '';
+
+    installPhase = ''
+      mkdir -p $out/bin
+      cp ${pname} $out/bin/${pname}
+      chmod +x $out/bin/${pname}
+
+      wrapProgram $out/bin/${pname} \
+        --prefix PATH : "${pkgs.bc}/bin"
+    '';
+  };
 in
 {
-  # Install custom scripts, see: "bin" folder.
-  home.packages = builtins.map (
-    name: pkgs.writeScriptBin name (readFileRelative "bin/${name}")
-  ) scripts;
+  home.packages = [ forge ];
 }

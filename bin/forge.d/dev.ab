@@ -1,0 +1,44 @@
+// © 2026 Max Karou. All Rights Reserved.
+// Licensed under Apache Version 2.0, or MIT License, at your discretion.
+//
+// Apache License: http://www.apache.org/licenses/LICENSE-2.0
+// MIT License: http://opensource.org/licenses/MIT
+//
+// Usage of this file is permitted solely under a sanctioned license.
+
+import { env_var_get } from "std/env"
+
+import * from "../lib/trace.ab"
+
+/// Target scope for trace messages.
+const TARGET = "forge::dev"
+
+/// Enters a remote development environment.
+/// Executes "nix develop" with the specified flake.
+pub fun _cmd_dev(_args: [Text], debug: Bool): Null {
+    let args = _args
+
+    if len(args) == 0 {
+        trace_error(TARGET, "No flake name specified")
+        exit(1)
+    }
+
+    if len(args) > 1 {
+        trace_error(TARGET, "Too many arguments specified")
+        exit(1)
+    }
+
+    let flake = args[0]
+
+    let shell = env_var_get("SHELL") failed { "bash" }
+    let url = "github:52/nix-flakes?dir={flake}"
+
+    if debug {
+        trace_debug(TARGET, "Entering '{flake}' from '{url}'")
+    }
+
+    $ exec nix develop "{url}" --refresh --no-write-lock-file --impure -c "{shell}" $ failed {
+        trace_error(TARGET, "Failed to enter '{flake}'")
+        exit(1)
+    }
+}

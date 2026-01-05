@@ -1,0 +1,61 @@
+// © 2026 Max Karou. All Rights Reserved.
+// Licensed under Apache Version 2.0, or MIT License, at your discretion.
+//
+// Apache License: http://www.apache.org/licenses/LICENSE-2.0
+// MIT License: http://opensource.org/licenses/MIT
+//
+// Usage of this file is permitted solely under a sanctioned license.
+
+import { printf } from "std/env"
+
+const COLOR_RED    = "\\033[0;91m"
+const COLOR_GREEN  = "\\033[0;92m"
+const COLOR_YELLOW = "\\033[0;93m"
+const COLOR_BLUE   = "\\033[0;94m"
+const COLOR_CYAN   = "\\033[0;96m"
+const COLOR_RESET  = "\\033[0m"
+
+/// Generates the current timestamp.
+/// Returns an empty POSIX time string on failure.
+/// Outputs the timestamp in "YYYY-MM-DD HH:MM:SS" format.
+fun timestamp(): Text {
+    return $ date '+%Y-%m-%d %H:%M:%S' $ failed {
+        return "0000-00-00 00:00:00"
+    }
+}
+
+/// Prints a formatted trace message to stdout.
+/// Composes a log line with ANSI color codes and a timestamp prefix.
+fun _print(color: Text, scope: Text, level: Text, message: Text): Null {
+    printf("%b%s [%s] %s: %b%s\n", [color, timestamp(), level, scope, COLOR_RESET, message])
+}
+
+/// Prints an error message.
+/// Outputs a red-colored error log line.
+pub fun trace_error(scope: Text, message: Text): Null {
+    _print(COLOR_RED, scope, "ERROR", message)
+}
+
+/// Prints a warning message.
+/// Outputs a yellow-colored warning log line.
+pub fun trace_warning(scope: Text, message: Text): Null {
+    _print(COLOR_YELLOW, scope, "WARNING", message)
+}
+
+/// Prints a success message.
+/// Outputs a green-colored success log line.
+pub fun trace_success(scope: Text, message: Text): Null {
+    _print(COLOR_GREEN, scope, "SUCCESS", message)
+}
+
+/// Prints an info message.
+/// Outputs a blue-colored info log line.
+pub fun trace_info(scope: Text, message: Text): Null {
+    _print(COLOR_BLUE, scope, "INFO", message)
+}
+
+/// Prints a debug message.
+/// Outputs a cyan-colored debug log line.
+pub fun trace_debug(scope: Text, message: Text): Null {
+    _print(COLOR_CYAN, scope, "DEBUG", message)
+}
