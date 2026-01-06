@@ -46,6 +46,18 @@ lib.mkUser {
       enableGitIntegration = true;
       enableGitSigning = true;
     };
+
+    # Configure the "vim" module.
+    # See "home/vim.ssh"
+    vim = {
+      enable = true;
+    };
+
+    # Configure the "tmux" module.
+    # See "home/tmux.ssh"
+    tmux = {
+      enable = true;
+    };
   };
 
   # Tracks the original version for compatibility.

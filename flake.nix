@@ -30,11 +30,6 @@
       url = "git+ssh://git@github.com/52/nix-secrets";
       flake = false;
     };
-
-    vix = {
-      url = "github:52/vix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =

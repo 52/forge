@@ -21,7 +21,6 @@
         tamzen
 
         apple-fonts
-        atom-fonts
         ;
     };
 
