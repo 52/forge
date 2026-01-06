@@ -28,7 +28,7 @@
 
     nix-secrets = {
       url = "git+ssh://git@github.com/52/nix-secrets";
-      inputs.nixpkgs.follows = "nixpkgs";
+      flake = false;
     };
 
     vix = {

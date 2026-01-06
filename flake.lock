@@ -102,24 +102,6 @@
         "type": "github"
       }
     },
-    "flake-utils_2": {
-      "inputs": {
-        "systems": "systems_3"
-      },
-      "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "hardware": {
       "locked": {
         "lastModified": 1767185284,
@@ -163,11 +145,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767514898,
-        "narHash": "sha256-ONYqnKrPzfKEEPChoJ9qPcfvBqW9ZgieDKD7UezWPg4=",
+        "lastModified": 1767619900,
+        "narHash": "sha256-KpoCBPvwHz3gAQtIUkohE2InRBFK3r0/FM6z5SPWfvM=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7a06e8a2f844e128d3b210a000a62716b6040b7f",
+        "rev": "6bd04da47cfb48dfd15eabf08364b78ad894f5b2",
         "type": "github"
       },
       "original": {
@@ -185,11 +167,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767492637,
-        "narHash": "sha256-I66iS1wglX4xDIUJeRkL+dMWwLbfcYJO53GyFMYgw8E=",
+        "lastModified": 1767579768,
+        "narHash": "sha256-MDyl7tiem57OAOcPuCJrONh1PCcKj5OzJEesBrka3dk=",
         "owner": "fufexan",
         "repo": "nix-gaming",
-        "rev": "006d2dfbeb0f3fb8cdee9d4b490537f202cb95d4",
+        "rev": "4199abcbc86b52e6878d1021da61c4e8e308e00e",
         "type": "github"
       },
       "original": {
@@ -199,18 +181,13 @@
       }
     },
     "nix-secrets": {
-      "inputs": {
-        "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
+      "flake": false,
       "locked": {
-        "lastModified": 1767577499,
-        "narHash": "sha256-UieoOm6ZRCvwdnIFfR1AKfiuoDXPYh7ilCa8db76E1U=",
+        "lastModified": 1767660796,
+        "narHash": "sha256-xvYTyu2f9HC2DtzWHsir+mX6r4f5njroFutvCX+se/k=",
         "ref": "refs/heads/master",
-        "rev": "8d6fd4a0a30a8d2a9346bb7dcaaa53f6e0aadbbd",
-        "revCount": 14,
+        "rev": "24a79f2086e60f9f755f10c3adcfb8d304d7fb8f",
+        "revCount": 15,
         "type": "git",
         "url": "ssh://git@github.com/52/nix-secrets"
       },
@@ -274,11 +251,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767577339,
-        "narHash": "sha256-ymoKex7ZzC7uWcpZHC51ElOhg7j68brTSxg/TTEl6eI=",
+        "lastModified": 1767653276,
+        "narHash": "sha256-YkaQtfPLAcnqqQn2Trny4uV4KkaEnvcNdbzLZQstC58=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "23d0996cd280689d697036062d08549c7d0a8779",
+        "rev": "2410a008c8772ceba776fdb1e8f8430d002335df",
         "type": "github"
       },
       "original": {
@@ -330,24 +307,9 @@
         "type": "github"
       }
     },
-    "systems_3": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
     "vix": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
+        "flake-utils": "flake-utils",
         "nixpkgs": [
           "nixpkgs"
         ]
