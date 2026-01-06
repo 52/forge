@@ -101,8 +101,17 @@ in
         ## Load the "__git_ps1" command.
         . $HOME/.nix-profile/share/git/contrib/completion/git-prompt.sh
 
+        ## Load the "__nix_ps1" command.
+        __nix_ps1() {
+          if [ -n "$NIX_FLAKE_NAME" ]; then
+            printf " [%s]" "$NIX_FLAKE_NAME"
+          elif [ -n "$IN_NIX_SHELL" ]; then
+            echo " [*]"
+          fi
+        }
+
         ## Load the custom prompt.
-	PS1="\n\[\e[32m\]\w\$(__git_ps1 \"\[\e[31m\] [%s]\")\[\e[36m\]\''${IN_NIX_SHELL:+ *}\[\e[0m\] "
+        PS1="\n\[\e[32m\]\w\[\e[36m\]\$(__nix_ps1)\$(__git_ps1 \"\[\e[31m\] [%s]\")\[\e[0m\] "
       '';
     };
 
