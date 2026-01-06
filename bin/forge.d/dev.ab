@@ -31,7 +31,7 @@ pub fun _cmd_dev(_args: [Text], debug: Bool): Null {
     let flake = args[0]
 
     let shell = env_var_get("SHELL") failed { "bash" }
-    let url = "github:52/nix-flakes?dir={flake}"
+    let url = "github:52/nix-flakes?dir=langs/{flake}"
 
     if debug {
         trace_debug(TARGET, "Entering '{flake}' from '{url}'")
