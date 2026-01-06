@@ -90,13 +90,13 @@ in
 
         # Enable cycling through tab completion options.
         bind "tab: menu-complete"
-        bind "'\e[Z': menu-complete-backward"
+        bind '"\e[Z": menu-complete-backward'
 
         # Enable incremental history search with arrow keys.
-        bind "'\e[A': history-search-backward"
-        bind "'\e[B': history-search-forward"
-        bind "'\e[C': forward-char"
-        bind "'\e[D': backward-char"
+        bind '"\e[A": history-search-backward'
+        bind '"\e[B": history-search-forward'
+        bind '"\e[C": forward-char'
+        bind '"\e[D": backward-char'
 
         ## Load the "__git_ps1" command.
         . $HOME/.nix-profile/share/git/contrib/completion/git-prompt.sh
