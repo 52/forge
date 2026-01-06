@@ -11,6 +11,7 @@
       deadnix
       statix
       nixd
+      age
 
       ripgrep
       unzip
