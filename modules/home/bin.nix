@@ -6,17 +6,17 @@
 let
   inherit (lib) relativePath;
 
-  ## The package name.
+  ## Package name.
   ##
   #@ String
   pname = "forge";
 
-  ## The package version.
+  ## Package version.
   ##
   #@ String
   version = "0.1.0";
 
-  ## The package derivation.
+  ## Package derivation.
   ##
   #@ Derivation
   forge = pkgs.stdenv.mkDerivation {

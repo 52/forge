@@ -5,7 +5,6 @@
   ...
 }:
 let
-  inherit (lib) importAll;
   inherit (inputs) home-manager;
   inherit (outputs) overlays;
 in
@@ -26,7 +25,7 @@ in
 
   home-manager = {
     # Import all home-manager modules.
-    sharedModules = importAll "modules/home";
+    sharedModules = lib.pathsIn "modules/home" "nix";
 
     # Use the system-wide "nixpkgs" instance.
     useGlobalPkgs = true;

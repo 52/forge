@@ -11,7 +11,7 @@
     inputs.hardware.nixosModules.common-gpu-amd
     inputs.hardware.nixosModules.common-pc-ssd
 
-    (lib.importAll "modules/system")
+    (lib.pathsIn "modules/system" "nix")
 
     (lib.relativePath "modules/user/max@m001-x86.nix")
   ];
@@ -20,7 +20,7 @@
   # WARNING: Do not use (_) or you may run into unexpected issues.
   networking.hostName = "m001-x86";
 
-  # The time zone used when displaying times and dates.
+  # Time zone used when displaying times and dates.
   # See: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time.timeZone = "Europe/Berlin";
 

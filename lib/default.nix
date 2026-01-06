@@ -5,6 +5,7 @@
 }:
 rec {
   ## Convert a path to a relative path from the flake root.
+  ## Appends the given path to the flake root directory.
   ##
   ## ```nix
   ## relativePath "system/audio.nix"
@@ -14,6 +15,7 @@ rec {
   relativePath = lib.path.append ../.;
 
   ## Read the contents of a file from a path relative to the flake root.
+  ## Returns the file contents as a string.
   ##
   ## ```nix
   ## readFileRelative "bin/forge"
@@ -23,6 +25,7 @@ rec {
   readFileRelative = path: builtins.readFile (relativePath path);
 
   ## Filter a list of filenames by extension.
+  ## Returns only files matching the specified pattern.
   ##
   ## ```nix
   ## filterExt "rs" [ "main.rs" "rust-toolchain" ]
@@ -31,20 +34,21 @@ rec {
   #@ String -> [String] -> [String]
   filterExt = ext: files: builtins.filter (name: builtins.match ".*\\.${ext}" name != null) files;
 
-  ## Import all ".nix" files from a directory.
+  ## Collect paths to all files with a matching extension.
+  ## Scans the directory and returns paths relative to the flake root.
   ##
   ## ```nix
-  ## importAll "system"
+  ## pathsIn "system" "nix"
   ## ```
   ##
   #@ String -> [Path]
-  importAll =
-    dir:
+  pathsIn =
+    dir: ext:
     map (name: relativePath dir + "/${name}") (
-      filterExt "nix" (builtins.attrNames (builtins.readDir (relativePath dir)))
+      filterExt ext (builtins.attrNames (builtins.readDir (relativePath dir)))
     );
 
-  ## Create a user with a home-manager configuration.
+  ## Create a system user with a home-manager configuration.
   ##
   ## ```nix
   ## mkUser {
@@ -84,6 +88,8 @@ rec {
       packages ? [ ],
 
       ## Set of secrets to provision for the user.
+      ## Secrets are decrypted at activation using age encryption.
+      ## See: https://github.com/ryantm/agenix
       ##
       #@ AttrSet
       secrets ? { },
@@ -94,6 +100,7 @@ rec {
       home ? { },
 
       ## Home-manager state version.
+      ## This should match the NixOS release version for compatibility.
       ## See: https://github.com/nix-community/home-manager/issues/5794
       ##
       #@ String
@@ -105,37 +112,34 @@ rec {
       };
 
       home-manager.users.${name} = lib.mkMerge [
-        # Import "agenix" and configure secrets when available.
-        # See: https://github.com/ryantm/agenix
         (lib.mkIf (secrets != { }) {
-          imports = builtins.attrValues {
-            inherit (inputs.agenix.homeManagerModules)
-              default
-              ;
-          };
+          imports = [ inputs.agenix.homeManagerModules.default ];
 
           age = {
+            # Path to the private key used for decryption.
             identityPaths = [ "/home/${name}/.age-key" ];
+
+            # Map secrets to their target locations and permissions.
             secrets = lib.mapAttrs (path: cfg: {
-              file = "${inputs.nix-secrets}/${path}.age";
-              path = "/home/${name}/${cfg.target}";
               inherit (cfg) mode;
+
+              # The secrets encrypted origin.
+              file = "${inputs.nix-secrets}/${path}.age";
+
+              # The secrets decrypted target.
+              path = "/home/${name}/${cfg.target}";
             }) secrets;
           };
         })
 
-        # Install user packages when provided.
         (lib.mkIf (packages != [ ]) {
           home.packages = packages;
         })
 
-        # Set the home-manager state version.
-        # This should match the NixOS release version.
         {
           home.stateVersion = stateVersion;
         }
 
-        # Merge the home-manager configuration.
         home
       ];
     };
