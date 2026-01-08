@@ -106,11 +106,24 @@ in
           autoSetupRebase = "never";
         };
 
+        color = {
+          # Enable colored output.
+          ui = "auto";
+
+          decorate = {
+            # Set the color for HEAD.
+            HEAD = "cyan";
+            # Set the color for local branches.
+            branch = "green";
+            # Set the color for remote branches.
+            remoteBranch = "red";
+            # Set the color for tags.
+            tag = "yellow";
+          };
+        };
+
         # Set the default branch name.
         init.defaultBranch = "master";
-
-        # Enable colored output.
-        color.ui = "auto";
 
         # Enable columnized output.
         column.ui = "auto";
