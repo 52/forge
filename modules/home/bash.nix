@@ -70,9 +70,6 @@ in
       ];
 
       initExtra = ''
-        ## Enable "bash-sensible".
-        ## See: https://github.com/mrzool/bash-sensible
-
         # Enable case-insensitive completion.
         bind "set completion-ignore-case on"
 
@@ -98,10 +95,10 @@ in
         bind '"\e[C": forward-char'
         bind '"\e[D": backward-char'
 
-        ## Load the "__git_ps1" command.
+        # Load the "__git_ps1" command.
         . $HOME/.nix-profile/share/git/contrib/completion/git-prompt.sh
 
-        ## Load the "__nix_ps1" command.
+        # Load the "__nix_ps1" command.
         __nix_ps1() {
           if [ -n "$NIX_FLAKE_NAME" ]; then
             printf " [%s]" "$NIX_FLAKE_NAME"
@@ -110,7 +107,23 @@ in
           fi
         }
 
-        ## Load the custom prompt.
+        # Remove the bold ("01") SGR attribute from LS_COLORS.
+        # See: https://man7.org/linux/man-pages/man5/dir_colors.5.html
+        LS_COLORS=''${LS_COLORS//=01/=00}
+        LS_COLORS=''${LS_COLORS//;01/;00}
+
+        # Remove the bold ("01") SGR attribute from EZA_COLORS.
+        # See: https://man.archlinux.org/man/extra/eza/eza_colors.5.en
+        EZA_METAS="uu=33:gu=33:lc=31:df=32:nk=32:uk=32:xx=90:Gd=33"
+        EZA_FILES="di=34:bd=33:cd=33:so=31:ex=32:mp=34;4"
+        EZA_TYPES="vi=35:lo=36:cr=32:bu=33;4:sc=33"
+        EZA_PERMS="ur=33:uw=31:ux=32;4:ue=32"
+
+        # Export the customized color definitions.
+        export EZA_COLORS="$EZA_FILES:$EZA_PERMS:$EZA_METAS:$EZA_TYPES"
+        export LS_COLORS
+
+        # Load the custom prompt.
         PS1="\n\[\e[32m\]\w\[\e[36m\]\$(__nix_ps1)\$(__git_ps1 \"\[\e[31m\] [%s]\")\[\e[0m\] "
       '';
     };
