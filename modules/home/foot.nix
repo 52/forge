@@ -22,12 +22,7 @@ mkIf wayland.enable {
   xdg.configFile."foot/foot.ini".text = ''
     [main]
     # Set the terminal font.
-    ${concatMapStringsSep "\n" (var: "font${var}=pixel:pixelsize=20") [
-      ""
-      "-bold"
-      "-bold-italic"
-      "-italic"
-    ]}
+    font=pixel:pixelsize=20
 
     # Set the font size adjustment.
     font-size-adjustment=100%
