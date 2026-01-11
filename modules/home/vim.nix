@@ -23,12 +23,33 @@ let
     hash = "sha256-d/fiDTvC1pAIvzs8kdO4tC7gQJz13feLPXFiUxXdoG0=";
   };
 
+  ## Vim configuration.
+  ##
+  #@ Derivation
+  conf = pkgs.fetchFromGitHub {
+    owner = "52";
+    repo = "vim";
+    rev = "afc123c34a089d9ff0948bdb0ee115e61b16f8fe";
+    hash = "sha256-bXPmlzKxeMYZ7nPuwHCEIk2urlPSnFBxfsAuuM3y3pM=";
+    fetchSubmodules = true;
+  };
+
   ## Vim package.
   ##
   #@ Package
-  vim = pkgs.vim-full.overrideAttrs (_: {
+  package = pkgs.vim-full.overrideAttrs (_: {
     inherit version src;
   });
+
+  ## Vim derivation.
+  ##
+  #@ Package
+  vim = package.customize {
+    vimrcConfig.customRC = ''
+      set runtimepath=${conf},$VIMRUNTIME,${conf}/after
+      set packpath=${conf},$VIMRUNTIME,${conf}/after
+    '';
+  };
 in
 {
   options.vim = {
