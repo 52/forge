@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) concatMapStringsSep mkIf;
+  inherit (lib) mkIf;
   inherit (osConfig) wayland;
   inherit (config) theme;
 in
