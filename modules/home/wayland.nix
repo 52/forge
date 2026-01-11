@@ -209,6 +209,8 @@ mkIf wayland.enable {
         ", Print, exec, grim | wl-copy"
         # <MOD> + <Print> to capture a selected area.
         "$mod, Print, exec, grim -g \"$(slurp)\" | wl-copy"
+        # <MOD> + <Shift> + <Print> to zoom into an area.
+        "$mod SHIFT, Print, exec, woomer"
       ];
 
       binde = [

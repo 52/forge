@@ -28,6 +28,7 @@ in
     environment.systemPackages = builtins.attrValues {
       inherit (pkgs)
         wl-clipboard
+        woomer
         slurp
         grim
         ;
