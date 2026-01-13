@@ -21,25 +21,26 @@ mkIf wayland.enable {
   # See: https://man.archlinux.org/man/foot.ini.5.en
   xdg.configFile."foot/foot.ini".text = ''
     [main]
-    # Set the terminal font.
+    # Set the font family.
     font=pixel:pixelsize=20
-
-    # Set the font size adjustment.
     font-size-adjustment=100%
 
-    # Set the window padding.
+    # Add window padding.
     pad=15x10 center
 
-    # Set the clipboard target.
+    # Adjust underline appearance.
+    underline-thickness=1
+    underline-offset=6
+
+    # Write selections to clipboard and primary.
     selection-target=both
 
     [colors]
-    # Set the background color.
+    # Set the primary colors.
     background=${theme.colors.active.background}
-    # Set the foreground color.
     foreground=${theme.colors.active.foreground}
 
-    # Set the regular colors.
+    # Set the regular color palette.
     regular0=${theme.colors.palette.regular.black}
     regular1=${theme.colors.palette.regular.red}
     regular2=${theme.colors.palette.regular.green}
@@ -49,7 +50,7 @@ mkIf wayland.enable {
     regular6=${theme.colors.palette.regular.cyan}
     regular7=${theme.colors.palette.regular.white}
 
-    # Set the bright colors.
+    # Set the bright color palette.
     bright0=${theme.colors.palette.bright.black}
     bright1=${theme.colors.palette.bright.red}
     bright2=${theme.colors.palette.bright.green}
