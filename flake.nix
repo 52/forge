@@ -86,7 +86,9 @@
       # See: https://nix.dev/manual/nix/2.18/command-ref/new-cli/nix3-develop
       devShells = forEachSystem (pkgs: {
         default = pkgs.mkShell {
-          packages = [ ];
+          packages = with pkgs; [
+            amber-lang
+          ];
         };
       });
 
