@@ -29,15 +29,13 @@ pub fun _cmd_dev(_args: [Text], debug: Bool): Null {
     }
 
     let flake = args[0]
-
-    let shell = env_var_get("SHELL") failed { "bash" }
     let url = "github:52/nix-flakes?dir=env/{flake}"
 
     if debug {
         trace_debug(TARGET, "Entering '{flake}' from '{url}'")
     }
 
-    $ exec nix develop "{url}" --refresh --no-write-lock-file --impure -c "{shell}" $ failed {
+    $ exec nix develop "{url}" --refresh --no-write-lock-file --impure $ failed {
         trace_error(TARGET, "Failed to enter '{flake}'")
         exit(1)
     }
