@@ -4,7 +4,7 @@
   ...
 }:
 let
-  inherit (lib) mkMerge optionalAttrs;
+  inherit (lib) mkMerge optionalAttrs optionalString;
   inherit (config) git tmux vim;
 in
 {
@@ -130,6 +130,16 @@ in
 
         # Load the custom prompt.
         PS1="\n\[\e[32m\]\w\[\e[36m\]\$(__nix_ps1)\$(__git_ps1 \"\[\e[31m\] [%s]\")\[\e[0m\] "
+
+        ${optionalString tmux.enable ''
+          # Attach to existing tmux session or create a new one.
+          # TMUX_SESSION can be used to override the default session name.
+          # See: https://www.markhansen.co.nz/auto-start-tmux
+          if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
+            SESSION="''${TMUX_SESSION:-''${TERMINAL:-main}}"
+            tmux new-session -A -s "$SESSION"
+          fi
+        ''}
       '';
     };
 

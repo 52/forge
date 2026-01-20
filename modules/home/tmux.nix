@@ -1,10 +1,12 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }:
 let
   inherit (lib) mkIf mkOption types;
+  inherit (config) theme;
   cfg = config.tmux;
 in
 {
@@ -23,25 +25,56 @@ in
   config = mkIf cfg.enable {
     # Enable "tmux".
     # See: https://github.com/tmux/tmux/wiki
-    programs.tmux = {
-      enable = true;
-
-      # Manage the configuration file directly.
-      # See: https://github.com/tmux/tmux/wiki/Getting-Started#configuring-tmux
-      extraConfig = ''
-        # Terminal overrides for true color support.
-        set -ag terminal-overrides ",xterm-256color:RGB"
-        set -g default-terminal "tmux-256color"
-
-        # Fix the <ESC> delay in vim.
-        set -sg escape-time 0
-
-        # Set the history limit.
-        set -g history-limit 50000
-
-        # Enable mouse scroll.
-        set -g mouse on
-      '';
+    home.packages = builtins.attrValues {
+      inherit (pkgs) tmux;
     };
+
+    # Manage the configuration file directly.
+    # See: https://github.com/tmux/tmux/wiki/Getting-Started#configuring-tmux
+    xdg.configFile."tmux/tmux.conf".text = ''
+      set -g default-terminal "tmux-256color"
+      set -ag terminal-overrides ",$TERM:Tc"
+
+      set -g mouse on
+      set -g focus-events on
+      set -g history-limit 10000
+
+      # Set the escape sequence delay.
+      # Note: Lower values reduce the ESC delay in vim.
+      set -sg escape-time 10
+
+      # Start window and pane indices at 1.
+      set -g base-index 1
+      setw -g pane-base-index 1
+      setw -g renumber-windows on
+
+      unbind C-b
+      set -g prefix C-,
+      bind C-, send-prefix
+
+      bind h select-pane -L
+      bind j select-pane -D
+      bind k select-pane -U
+      bind l select-pane -R
+
+      bind n next-window
+      bind p previous-window
+      bind c new-window -c "#{pane_current_path}"
+      bind r command-prompt "rename-window '%%'"
+
+      bind -r H resize-pane -L 15
+      bind -r J resize-pane -D 15
+      bind -r K resize-pane -U 15
+      bind -r L resize-pane -R 15
+
+      bind s split-window -h -c "#{pane_current_path}"
+      bind v split-window -v -c "#{pane_current_path}"
+      unbind '"'
+      unbind %
+
+      set -g pane-border-indicators off
+      set -g pane-border-style "fg=#${theme.colors.palette.regular.black}"
+      set -g pane-active-border-style "fg=#${theme.colors.palette.bright.black}"
+    '';
   };
 }
