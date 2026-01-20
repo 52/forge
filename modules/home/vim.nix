@@ -29,8 +29,8 @@ let
   conf = pkgs.fetchFromGitHub {
     owner = "52";
     repo = "vim";
-    rev = "013edca57b4a2cb76ced00b0a2b32aa60088d81c";
-    hash = "sha256-rOj1QV+baoS/BR3YUd0bEwDM7DrMs1WOf5H+W7rk7kY=";
+    rev = "1c208eb9ec62b243e0881443bd4c752ee2f5a7ec";
+    hash = "sha256-PWttTL+rOr/FyRR/CigZ2d/NrRgicIeXyBeSQvdd/94=";
     fetchSubmodules = true;
   };
 
