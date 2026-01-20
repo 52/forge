@@ -8,9 +8,6 @@ let
   inherit (config) git tmux vim;
 in
 {
-  # Set the default shell.
-  env.SHELL = "bash";
-
   programs = {
     # Enable "bash".
     # See: https://www.gnu.org/software/bash

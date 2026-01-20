@@ -30,7 +30,7 @@ mkIf wayland.enable {
 
     # Adjust underline appearance.
     underline-thickness=1
-    underline-offset=6
+    underline-offset=4
 
     # Write selections to clipboard and primary.
     selection-target=both

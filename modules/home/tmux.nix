@@ -33,7 +33,10 @@ in
     # See: https://github.com/tmux/tmux/wiki/Getting-Started#configuring-tmux
     xdg.configFile."tmux/tmux.conf".text = ''
       set -g default-terminal "tmux-256color"
+
       set -ag terminal-overrides ",$TERM:Tc"
+      set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'
+      set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
 
       set -g mouse on
       set -g focus-events on
@@ -57,6 +60,7 @@ in
       bind k select-pane -U
       bind l select-pane -R
 
+      bind x kill-window
       bind n next-window
       bind p previous-window
       bind c new-window -c "#{pane_current_path}"
