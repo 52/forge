@@ -95,6 +95,11 @@ in
         bind '"\e[C": forward-char'
         bind '"\e[D": backward-char'
 
+        # Disable terminal flow control.
+        # See: https://unix.stackexchange.com/a/12146
+        stty -ixon
+        bind -r '\C-s'
+
         # Load the "__git_ps1" command.
         . $HOME/.nix-profile/share/git/contrib/completion/git-prompt.sh
 
