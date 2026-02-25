@@ -109,6 +109,13 @@ in
           fi
         }
 
+        # Load the "__ssh_ps1" command.
+        __ssh_ps1() {
+          if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+            printf " [ssh:%s]" "$(hostname -s)"
+          fi
+        }
+
         # Remove the bold ("01") SGR attribute from LS_COLORS.
         # See: https://man7.org/linux/man-pages/man5/dir_colors.5.html
         LS_COLORS=''${LS_COLORS//=01/=00}
@@ -126,17 +133,7 @@ in
         export LS_COLORS
 
         # Load the custom prompt.
-        PS1="\n\[\e[32m\]\w\[\e[36m\]\$(__nix_ps1)\$(__git_ps1 \"\[\e[31m\] [%s]\")\[\e[0m\] "
-
-        ${optionalString tmux.enable ''
-          # Attach to existing tmux session or create a new one.
-          # TMUX_SESSION can be used to override the default session name.
-          # See: https://www.markhansen.co.nz/auto-start-tmux
-          if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
-            SESSION="''${TMUX_SESSION:-''${TERMINAL:-main}}"
-            tmux new-session -A -s "$SESSION"
-          fi
-        ''}
+        PS1="\n\[\e[32m\]\w\[\e[35m\]\$(__ssh_ps1)\[\e[36m\]\$(__nix_ps1)\$(__git_ps1 \"\[\e[31m\] [%s]\")\[\e[0m\] "
       '';
     };
 

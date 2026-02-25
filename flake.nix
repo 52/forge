@@ -27,7 +27,7 @@
     };
 
     nix-secrets = {
-      url = "git+ssh://git@github.com/52/nix-secrets";
+      url = "github:52/nix-secrets";
       flake = false;
     };
   };

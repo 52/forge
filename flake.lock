@@ -167,15 +167,15 @@
       "locked": {
         "lastModified": 1767660796,
         "narHash": "sha256-xvYTyu2f9HC2DtzWHsir+mX6r4f5njroFutvCX+se/k=",
-        "ref": "refs/heads/master",
+        "owner": "52",
+        "repo": "nix-secrets",
         "rev": "24a79f2086e60f9f755f10c3adcfb8d304d7fb8f",
-        "revCount": 15,
-        "type": "git",
-        "url": "ssh://git@github.com/52/nix-secrets"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/52/nix-secrets"
+        "owner": "52",
+        "repo": "nix-secrets",
+        "type": "github"
       }
     },
     "nixpkgs": {

@@ -13,7 +13,14 @@ lib.mkUser {
   # Install user dependencies.
   packages = builtins.attrValues {
     inherit (pkgs)
+      nixfmt-rfc-style
+      deadnix
+      statix
+      nixd
+      age
+
       hyperfine
+      unzip
       ;
   };
 
@@ -38,13 +45,7 @@ lib.mkUser {
       enable = true;
       name = "Max Karou";
       email = "maxkarou@protonmail.com";
-    };
-
-    # Configure the "ssh" module.
-    # See: "home/ssh.nix"
-    ssh = {
-      enableGitIntegration = true;
-      enableGitSigning = true;
+      enableSSHIntegration = true;
     };
 
     # Configure the "vim" module.
