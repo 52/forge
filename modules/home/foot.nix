@@ -35,7 +35,7 @@ mkIf wayland.enable {
     # Write selections to clipboard and primary.
     selection-target=both
 
-    [colors]
+    [colors-dark]
     # Set the primary colors.
     background=${theme.colors.active.background}
     foreground=${theme.colors.active.foreground}

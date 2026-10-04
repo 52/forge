@@ -20,6 +20,9 @@ mkIf wayland.enable {
     # See: https://wiki.hyprland.org/Useful-Utilities/Systemd-start
     package = null;
 
+    # Generate the configuration in legacy "Hyprlang".
+    configType = "hyprlang";
+
     # Disable the systemd integration (managed by UWSM).
     # See: https://github.com/Vladimir-csp/uwsm
     systemd.enable = false;
@@ -29,7 +32,6 @@ mkIf wayland.enable {
     plugins = builtins.attrValues {
       inherit (pkgs.hyprlandPlugins)
         hyprbars
-        hyprexpo
         hy3
         ;
     };
@@ -108,15 +110,15 @@ mkIf wayland.enable {
         dim_strength = 0.2;
       };
 
-      windowrulev2 = [
+      windowrule = [
         # Set the title bar color for focused windows.
-        "plugin:hyprbars:bar_color rgb(${theme.colors.active.background}), focus:1"
+        "hyprbars:bar_color rgb(${theme.colors.active.background}), match:focus 1"
         # Set the title text color for focused windows.
-        "plugin:hyprbars:title_color rgb(${theme.colors.active.foreground}), focus:1"
+        "hyprbars:title_color rgb(${theme.colors.active.foreground}), match:focus 1"
         # Set the title bar color for unfocused windows.
-        "plugin:hyprbars:bar_color rgb(${theme.colors.inactive.background}), focus:0"
+        "hyprbars:bar_color rgb(${theme.colors.inactive.background}), match:focus 0"
         # Set the title text color for unfocused windows.
-        "plugin:hyprbars:title_color rgb(${theme.colors.inactive.foreground}), focus:0"
+        "hyprbars:title_color rgb(${theme.colors.inactive.foreground}), match:focus 0"
       ];
 
       plugin = {
@@ -153,9 +155,6 @@ mkIf wayland.enable {
         "$mod, T, exec, uwsm app -- ${env.TERMINAL or "foot"}"
         # <MOD> + F to open $BROWSER.
         "$mod, F, exec, uwsm app -- ${env.BROWSER or "helium"}"
-
-        # <MOD> + W to toggle workspace overview.
-        "$mod, W, hyprexpo:expo, toggle"
 
         # <MOD> + <Space> to toggle application launcher.
         "$mod, SPACE, exec, uwsm app -- vicinae toggle"
@@ -242,12 +241,14 @@ mkIf wayland.enable {
   services.hyprpaper = {
     enable = true;
 
-    settings = {
-      # Preload the wallpaper.
-      preload = [ "${theme.wallpaper}" ];
-      # Display the wallpaper for all outputs.
-      wallpaper = [ ", ${theme.wallpaper}" ];
-    };
+    settings.wallpaper = [
+      {
+        # Display the wallpaper for all outputs.
+        monitor = "";
+        # Load the wallpaper image.
+        path = "${theme.wallpaper}";
+      }
+    ];
   };
 
   # Enable "Vicinae".
@@ -281,9 +282,14 @@ mkIf wayland.enable {
       gtk-application-prefer-dark-theme = true;
     };
 
-    # Prefer dark colorscheme for GTK4.
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
+    gtk4 = {
+      # Set the default theme for GTK4.
+      theme = config.gtk.theme;
+
+      # Prefer dark colorscheme for GTK4.
+      extraConfig = {
+        gtk-application-prefer-dark-theme = true;
+      };
     };
   };
 

@@ -2,12 +2,12 @@
   description = "A modular, multi-host nixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixOS/nixpkgs/nixos-unstable";
     hardware.url = "github:nixos/nixos-hardware";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -85,7 +85,7 @@
 
       # Formatter used by "nix fmt".
       # See: https://nix-community.github.io/nixpkgs-fmt/
-      formatter = forEachSystem (pkgs: pkgs.nixfmt-rfc-style);
+      formatter = forEachSystem (pkgs: pkgs.nixfmt);
 
       # Shell used by "nix develop".
       # See: https://nix.dev/manual/nix/2.18/command-ref/new-cli/nix3-develop

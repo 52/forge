@@ -156,16 +156,14 @@ in
         # Disable the old default configuration values.
         enableDefaultConfig = false;
 
-        # Configure the "git" match block.
-        matchBlocks."git" = {
+        # Configure the "GitHub" and "GitLab" settings.
+        settings."github.com gitlab.com" = {
           # Set the user for authentication.
-          user = "git";
-          # Match only on "GitHub" and "GitLab" hosts.
-          host = "github.com gitlab.com";
+          User = "git";
           # Set the identity file (Private Key).
-          identityFile = "${home.homeDirectory}/.ssh/id_ed25519";
+          IdentityFile = "${home.homeDirectory}/.ssh/id_ed25519";
           # Only use the specified identity.
-          identitiesOnly = true;
+          IdentitiesOnly = true;
         };
       };
 

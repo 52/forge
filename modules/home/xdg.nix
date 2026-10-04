@@ -42,11 +42,14 @@ in
         # Automatically create the XDG user directories.
         createDirectories = true;
 
+        # Automatically export directory variables.
+        setSessionVariables = true;
+
         extraConfig = {
           # Disable the "XDG_PUBLICSHARE_DIR" directory.
-          XDG_PUBLICSHARE_DIR = "/var/empty";
+          PUBLICSHARE = "/var/empty";
           # Disable the "XDG_TEMPLATES_DIR" directory.
-          XDG_TEMPLATES_DIR = "/var/empty";
+          TEMPLATES = "/var/empty";
         };
       }
 

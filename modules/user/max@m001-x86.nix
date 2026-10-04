@@ -13,9 +13,9 @@ lib.mkUser {
   # Install user dependencies.
   packages = builtins.attrValues {
     inherit (pkgs)
-      nixfmt-rfc-style
       deadnix
       statix
+      nixfmt
       nixd
       age
 

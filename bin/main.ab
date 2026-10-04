@@ -32,7 +32,9 @@ Options:
 
 main(_argv) {
     let args = _argv
-    array_shift(args)
+    array_shift(args) failed {
+        exit(1)
+    }
 
     if len(args) == 0 {
         echo HELP
@@ -40,7 +42,9 @@ main(_argv) {
     }
 
     let cmd = args[0]
-    array_shift(args)
+    array_shift(args) failed {
+        exit(1)
+    }
 
     if is_flag(cmd, "-h", "--help") {
         echo HELP
@@ -59,7 +63,9 @@ main(_argv) {
         if len(args) == 0: break
 
         let arg = args[0]
-        array_shift(args)
+        array_shift(args) failed {
+            exit(1)
+        }
 
         if is_flag(arg, "-h", "--help") {
             echo HELP

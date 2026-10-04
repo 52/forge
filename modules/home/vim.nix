@@ -11,7 +11,7 @@ let
   ## Vim version.
   ##
   #@ String
-  version = "9.2.0851";
+  version = "9.2.1160";
 
   ## Vim source.
   ##
@@ -20,7 +20,7 @@ let
     owner = "vim";
     repo = "vim";
     rev = "v${version}";
-    hash = "sha256-48rdkjYTJMf3Fux/b3DSDiQRVJC/DMtgZLNzqJwIbdo=";
+    hash = "sha256-y4CFI+msLXu32wjHnSHWKyJxr7b+gFV5daKChILC9zY=";
   };
 
   ## Vim configuration.
@@ -29,8 +29,8 @@ let
   conf = pkgs.fetchFromGitHub {
     owner = "52";
     repo = "vim";
-    rev = "a73cf613e08d77c41ba02bb71e400f8cdeeff9eb";
-    hash = "sha256-RT2VI3q+d+FA+/+z0BMHm6O2Vt7uL4OTC0My8TtwR08=";
+    rev = "2ee8392aa1517e5bc722310ac08ae85f9d8fe6d9";
+    hash = "sha256-FEbwPh7+bhnUFNLKntuMGS81DlVe7fOlTSUQ4Jz+Ns8=";
     fetchSubmodules = true;
   };
 

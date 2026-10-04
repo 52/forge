@@ -1,10 +1,11 @@
 {
 
   lib,
-  xorg,
-  p7zip,
   fetchurl,
   stdenvNoCC,
+  mkfontscale,
+  mkfontdir,
+  p7zip,
   ...
 }:
 stdenvNoCC.mkDerivation {
@@ -34,8 +35,8 @@ stdenvNoCC.mkDerivation {
   ];
 
   nativeBuildInputs = [
-    xorg.mkfontscale
-    xorg.mkfontdir
+    mkfontscale
+    mkfontdir
     p7zip
   ];
 
